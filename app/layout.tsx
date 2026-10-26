@@ -1,10 +1,10 @@
 import { Geist_Mono, Instrument_Sans } from "next/font/google"
 
-import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils"
+import "./globals.css"
 
-const instrumentSans = Instrument_Sans({subsets:['latin'],variable:'--font-sans'})
+const instrumentSans = Instrument_Sans({ subsets: ["latin"], variable: "--font-sans" })
 
 const fontMono = Geist_Mono({
   subsets: ["latin"],

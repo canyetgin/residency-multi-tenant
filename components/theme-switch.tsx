@@ -13,9 +13,7 @@ export function ThemeSwitch() {
       aria-label="Theme"
       disabled={Boolean(forcedTheme)}
       value={hydrated ? (theme ?? options[0]) : options[0]}
-      onChange={(event) =>
-        setTheme(event.target.value as (typeof options)[number])
-      }
+      onChange={(event) => setTheme(event.target.value as (typeof options)[number])}
     >
       {options.map((option) => (
         <option key={option} value={option}>
