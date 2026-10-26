@@ -1,25 +1,22 @@
 "use client"
 
 import { useHydrated, useTheme } from "@wrksz/themes/client"
-
-const options = ["system", "light", "dark"] as const
+import { Moon, Sun } from "lucide-react"
+import { Toggle } from "./ui/toggle"
 
 export function ThemeSwitch() {
-  const { theme, setTheme, forcedTheme } = useTheme<"light" | "dark">()
+  const { resolvedTheme, setTheme } = useTheme<"light" | "dark">()
   const hydrated = useHydrated()
+  const isLight = resolvedTheme === "light"
 
   return (
-    <select
-      aria-label="Theme"
-      disabled={Boolean(forcedTheme)}
-      value={hydrated ? (theme ?? options[0]) : options[0]}
-      onChange={(event) => setTheme(event.target.value as (typeof options)[number])}
+    <Toggle
+      onClick={() => setTheme(isLight ? "dark" : "light")}
+      aria-label={hydrated ? (isLight ? "Toggle dark mode" : "Toggle light mode") : undefined}
+      variant="outline"
     >
-      {options.map((option) => (
-        <option key={option} value={option}>
-          {option}
-        </option>
-      ))}
-    </select>
+      <Sun className="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 dark:scale-0 dark:-rotate-90" />
+      <Moon className="absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 dark:scale-100 dark:rotate-0" />
+    </Toggle>
   )
 }
