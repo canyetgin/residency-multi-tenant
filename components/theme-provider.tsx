@@ -1,19 +1,19 @@
 "use client"
 
+import { useTheme } from "@wrksz/themes/client"
+import { ThemeProvider as NextThemesProvider } from "@wrksz/themes/next/extended"
 import * as React from "react"
-import { ThemeProvider as NextThemesProvider, useTheme } from "next-themes"
 
 function ThemeProvider({
   children,
-  ...props
 }: React.ComponentProps<typeof NextThemesProvider>) {
   return (
     <NextThemesProvider
-      attribute="class"
-      defaultTheme="system"
-      enableSystem
+      storage="hybrid"
+      themeColor={{ light: "#ffffff", dark: "#0a0a0a" }}
       disableTransitionOnChange
-      {...props}
+      enableSameDocumentSync
+      systemThemeMap={{ light: "light", dark: "dark" }}
     >
       <ThemeHotkey />
       {children}
