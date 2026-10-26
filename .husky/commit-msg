@@ -1,0 +1,16 @@
+echo "======================================================="
+echo "📝 [STEP 2/3] HUSKY TRIGGERED: commit-msg"
+echo "⏳ Validating commit message format..."
+echo "======================================================="
+
+if ! pnpm dlx commitlint --edit "$1"; then
+  echo ""
+  echo "❌ [ERROR] commit-msg hook failed!"
+  echo "💡 Invalid commit message format! Please follow Conventional Commits specification."
+  echo "👉 Correct Example: git commit -m \"feat: add supabase login\""
+  echo "======================================================="
+  exit 1
+fi
+
+echo "✅ [SUCCESS] commit-msg hook passed! Message is valid."
+echo "======================================================="

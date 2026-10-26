@@ -4,8 +4,10 @@
   "singleQuote": false,
   "tabWidth": 2,
   "trailingComma": "es5",
-  "printWidth": 80,
-  "plugins": ["prettier-plugin-tailwindcss"],
+  "printWidth": 100,
+  "bracketSpacing": true,
+  "arrowParens": "always",
+  "plugins": ["prettier-plugin-tailwindcss", "prettier-plugin-organize-imports"],
   "tailwindStylesheet": "app/globals.css",
   "tailwindFunctions": ["cn", "cva"]
 }
