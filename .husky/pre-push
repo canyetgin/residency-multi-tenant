@@ -3,7 +3,7 @@ echo "🛡️  [STEP 3/3] HUSKY TRIGGERED: pre-push"
 echo "⏳ Running project-wide TypeScript type-check..."
 echo "======================================================="
 
-pnpm type-check
+pnpm typecheck
 
 echo "✅ [SUCCESS] All TypeScript checks passed! Pushing to GitHub..."
 echo "======================================================="
