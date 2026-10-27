@@ -18,5 +18,26 @@
   "themeSwitcher": {
     "toLight": "Switch to Light Theme",
     "toDark": "Switch to Dark Theme"
+  },
+  "auth": {
+    "invalidEmail": "Please enter a valid email address.",
+    "passwordTooShort": "Password must be at least 8 characters long.",
+    "organizationNameRequired": "Organization name is required.",
+    "invalidPhoneNumber": "Invalid phone number format.",
+    "phoneTooShort": "Phone number must be at least 10 digits long.",
+    "cityRequired": "City selection is required.",
+    "stateRequired": "State/Province selection is required.",
+    "zipCodeRequired": "Zip code is required.",
+    "password": "Password",
+    "email": "Email",
+    "forgotPassword": "Forgot Password",
+    "login": "Login",
+    "register": "Register",
+    "title": "Welcome Back!",
+    "subtitle": "Please enter your information to log in.",
+    "loginWithGoogle": "Login with Google",
+    "dontHaveAccount": "Don't have an account?",
+    "passwordPlaceholder": "Enter your password",
+    "emailPlaceholder": "you@example.com"
   }
 }

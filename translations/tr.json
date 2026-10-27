@@ -18,5 +18,26 @@
   "themeSwitcher": {
     "toLight": "Açık Tema'ya geçin",
     "toDark": "Koyu Tema'ya geçin"
+  },
+  "auth": {
+    "invalidEmail": "Geçerli bir e-posta adresi giriniz.",
+    "passwordTooShort": "Şifreniz en az 8 karakter olmalıdır.",
+    "organizationNameRequired": "Organizasyon adı zorunludur.",
+    "invalidPhoneNumber": "Geçersiz telefon numarası formatı.",
+    "phoneTooShort": "Telefon numarası en az 10 haneli olmalıdır.",
+    "cityRequired": "Şehir seçimi zorunludur.",
+    "stateRequired": "İlçe/Eyalet seçimi zorunludur.",
+    "zipCodeRequired": "Posta kodu zorunludur.",
+    "password": "Şifre",
+    "email": "E-posta",
+    "forgotPassword": "Şifremi Unuttum",
+    "login": "Giriş Yap",
+    "register": "Kayıt Ol",
+    "title": "Tekrardan Hoşgeldiniz!",
+    "subtitle": "Lütfen giriş yapmak için bilgilerinizi giriniz.",
+    "loginWithGoogle": "Google ile Giriş Yap",
+    "dontHaveAccount": "Hesabınız yok mu?",
+    "passwordPlaceholder": "Şifrenizi giriniz",
+    "emailPlaceholder": "siz@örnek.com"
   }
 }

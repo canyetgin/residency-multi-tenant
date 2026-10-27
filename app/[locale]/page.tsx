@@ -1,5 +1,5 @@
-import { LocaleSwitcher } from "@/components/locale-switcher/locale-switcher"
-import { ThemeSwitch } from "@/components/theme-switch"
+import { LocaleSwitcher } from "@/components/locale-switcher"
+import { ThemeSwitcher } from "@/components/theme-switcher"
 import { Button } from "@/components/ui/button"
 
 export default function Page() {
@@ -16,7 +16,7 @@ export default function Page() {
           (Press <kbd>d</kbd> to toggle dark mode)
         </div>
       </div>
-      <ThemeSwitch />
+      <ThemeSwitcher />
       <LocaleSwitcher />
     </div>
   )

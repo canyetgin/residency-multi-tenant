@@ -1,6 +1,6 @@
 import { type Locale } from "@/i18n/routing"
 
-export const FlagIcons = ({ country }: { country: Locale }) => {
+export const FlagIcon = ({ country }: { country: Locale }) => {
   const vectors: Record<string, React.JSX.Element> = {
     tr: (
       <svg

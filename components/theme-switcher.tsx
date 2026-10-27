@@ -5,7 +5,7 @@ import { Moon, Sun } from "lucide-react"
 import { useTranslations } from "next-intl"
 import { Button } from "./ui/button"
 
-export function ThemeSwitch() {
+export function ThemeSwitcher() {
   const { resolvedTheme, setTheme } = useTheme<"light" | "dark">()
   const t = useTranslations("themeSwitcher")
   const hydrated = useHydrated()
@@ -17,11 +17,8 @@ export function ThemeSwitch() {
       aria-label={hydrated ? (isLight ? t("toDark") : t("toLight")) : undefined}
       variant="outline"
     >
-      {isLight ? (
-        <Moon className="h-[1.2rem] w-[1.2rem]" />
-      ) : (
-        <Sun className="h-[1.2rem] w-[1.2rem]" />
-      )}
+      <Sun className="hidden h-[1.2rem] w-[1.2rem] dark:block" />
+      <Moon className="block h-[1.2rem] w-[1.2rem] dark:hidden" />
     </Button>
   )
 }

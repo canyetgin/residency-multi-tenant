@@ -1,5 +1,6 @@
 "use client"
 
+import { FlagIcon } from "@/components/icons/flag-icon"
 import {
   Select,
   SelectContent,
@@ -14,7 +15,6 @@ import { routing, type Locale } from "@/i18n/routing"
 import { useLocale, useTranslations } from "next-intl"
 import { useParams } from "next/navigation"
 import { useTransition } from "react"
-import { FlagIcons } from "./flag-icons"
 
 export function LocaleSwitcher() {
   const router = useRouter()
@@ -41,7 +41,7 @@ export function LocaleSwitcher() {
     <Select value={currentLocale} onValueChange={onSelectChange} disabled={isPending}>
       <SelectTrigger className="w-full max-w-36" aria-label={t("label")}>
         <span className="flex items-center gap-1.5 pointer-events-none">
-          <FlagIcons country={currentLocale} />
+          <FlagIcon country={currentLocale} />
           <SelectValue>{t(currentLocale)}</SelectValue>
         </span>
       </SelectTrigger>
@@ -51,7 +51,7 @@ export function LocaleSwitcher() {
           {routing.locales.map((locale) => (
             <SelectItem key={locale} value={locale} lang={locale} className="cursor-pointer">
               <div className="flex items-center gap-1.5 pointer-events-none">
-                <FlagIcons country={locale} />
+                <FlagIcon country={locale} />
                 <span>{t(locale)}</span>
               </div>
             </SelectItem>
