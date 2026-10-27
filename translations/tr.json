@@ -9,5 +9,14 @@
       "description": "Aradığınız sayfa mevcut değil. Lütfen URL'yi kontrol edin veya ana sayfaya dönün.",
       "buttonText": "Ana Sayfaya Git"
     }
+  },
+  "languageSwitcher": {
+    "label": "Dil Seçin",
+    "en": "İngilizce",
+    "tr": "Türkçe"
+  },
+  "themeSwitcher": {
+    "toLight": "Açık Tema'ya geçin",
+    "toDark": "Koyu Tema'ya geçin"
   }
 }

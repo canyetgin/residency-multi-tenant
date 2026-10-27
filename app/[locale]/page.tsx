@@ -1,3 +1,4 @@
+import { LocaleSwitcher } from "@/components/locale-switcher/locale-switcher"
 import { ThemeSwitch } from "@/components/theme-switch"
 import { Button } from "@/components/ui/button"
 
@@ -16,6 +17,7 @@ export default function Page() {
         </div>
       </div>
       <ThemeSwitch />
+      <LocaleSwitcher />
     </div>
   )
 }

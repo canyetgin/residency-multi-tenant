@@ -9,5 +9,14 @@
       "description": "The page you are looking for does not exist. Please check the URL or return to the homepage.",
       "buttonText": "Go to Homepage"
     }
+  },
+  "languageSwitcher": {
+    "label": "Select Language",
+    "en": "English",
+    "tr": "Turkish"
+  },
+  "themeSwitcher": {
+    "toLight": "Switch to Light Theme",
+    "toDark": "Switch to Dark Theme"
   }
 }
