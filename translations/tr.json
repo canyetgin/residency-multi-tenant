@@ -2,5 +2,12 @@
   "metadata": {
     "title": "Residency | Apartman Yönetimi ve Aidat Ödemeleri",
     "description": "Residency Multi-Tenant, kullanıcıların aidat ödemelerini ve apartman yönetimini güvenli ve verimli bir şekilde yapmalarına olanak tanıyan çok kullanıcılı bir uygulamadır."
+  },
+  "requests": {
+    "notFound": {
+      "title": "Sayfa Bulunamadı",
+      "description": "Aradığınız sayfa mevcut değil. Lütfen URL'yi kontrol edin veya ana sayfaya dönün.",
+      "buttonText": "Ana Sayfaya Git"
+    }
   }
 }

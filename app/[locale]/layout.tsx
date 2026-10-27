@@ -2,7 +2,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { routing } from "@/i18n/routing"
 import { cn } from "@/lib/utils"
 import { NextIntlClientProvider } from "next-intl"
-import { getTranslations } from "next-intl/server"
+import { getLocale, getTranslations } from "next-intl/server"
 import { Geist_Mono, Instrument_Sans } from "next/font/google"
 import "./globals.css"
 
@@ -26,14 +26,16 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }))
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const locale = await getLocale()
+
   return (
     <html
-      lang="en"
+      lang={locale}
       suppressHydrationWarning
       className={cn("antialiased", fontMono.variable, "font-sans", instrumentSans.variable)}
     >
