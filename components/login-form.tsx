@@ -21,6 +21,8 @@ export const LoginForm = () => {
       email: "",
       password: "",
     },
+    //need to unregister each time for security concerns. if user on verify page wanna switch account, it wont render old inputs
+    shouldUnregister: true,
     resolver: zodResolver(loginSchema),
   })
 

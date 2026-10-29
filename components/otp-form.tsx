@@ -35,6 +35,8 @@ export const OTPForm = ({ expiresAt, initialCountdown }: OTPFormProps) => {
     defaultValues: {
       otp: "",
     },
+    //need to unregister each time for security concerns. if user on verify page wanna switch account, then comes to verify again, it should never shows old values
+    shouldUnregister: true,
     resolver: zodResolver(OTPSchema),
   })
 
@@ -59,6 +61,7 @@ export const OTPForm = ({ expiresAt, initialCountdown }: OTPFormProps) => {
   }, [expiresAt])
 
   const handleResend = () => {
+    reset()
     startTransitionResend(async () => {
       const res = await resendOtpAction()
 
@@ -69,10 +72,8 @@ export const OTPForm = ({ expiresAt, initialCountdown }: OTPFormProps) => {
         })
         return
       }
-      reset()
 
       overriddenExpiresAtRef.current = res.expiresAt
-
       setCountdown(Math.max(0, Math.ceil((res.expiresAt - Date.now()) / 1000)))
 
       toast.add({

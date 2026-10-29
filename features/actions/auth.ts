@@ -15,6 +15,8 @@ const RESEND_DELAY = 60
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
+type AuthError = "invalidRequest" | "invalidCredentials" | "otpInvalidCode"
+
 type ActionResponse =
   | {
       success: true
@@ -22,18 +24,18 @@ type ActionResponse =
     }
   | {
       success: false
-      error: string
+      error: AuthError
     }
 
 type ResendOtpActionResponse =
   | {
       success: true
-      error?: never
       expiresAt: number
+      error?: never
     }
   | {
       success: false
-      error: string
+      error: "otpResendTooSoon"
       expiresAt?: never
     }
 
