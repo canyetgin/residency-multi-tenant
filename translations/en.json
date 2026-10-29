@@ -53,6 +53,8 @@
     "otpSwitchAccountAction": "Switch account",
     "otpSwitchAccount": "Wrong email?",
     "otpResentSuccess": "A new verification code has been sent to {email}.",
-    "otpResendTooSoon": "Please wait before requesting another code."
+    "otpResendTooSoon": "Please wait before requesting another code.",
+    "loginInvalidCredentials": "Invalid email or password.",
+    "invalidRequest": "Invalid request."
   }
 }

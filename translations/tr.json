@@ -53,6 +53,8 @@
     "otpSwitchAccountAction": "Hesap değiştir",
     "otpSwitchAccount": "E-posta yanlış mı?",
     "otpResentSuccess": "{email} adresine yeni bir doğrulama kodu gönderildi.",
-    "otpResendTooSoon": "Yeni bir kod istemeden önce lütfen biraz bekleyin."
+    "otpResendTooSoon": "Yeni bir kod istemeden önce lütfen biraz bekleyin.",
+    "loginInvalidCredentials": "E-posta veya şifre hatalı.",
+    "invalidRequest": "Geçersiz istek."
   }
 }

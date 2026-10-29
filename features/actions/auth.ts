@@ -64,7 +64,7 @@ export async function loginAction(values: loginSchemeValues): Promise<ActionResp
   if (!validation.success) {
     return {
       success: false,
-      error: "invalidFormData",
+      error: "invalidRequest",
     }
   }
 
@@ -117,7 +117,7 @@ export async function verifyOtpAction(values: OTPSchemeValues): Promise<ActionRe
   if (!validation.success) {
     return {
       success: false,
-      error: "invalidFormData",
+      error: "invalidRequest",
     }
   }
 
