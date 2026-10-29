@@ -32,12 +32,27 @@
     "email": "Email",
     "forgotPassword": "Forgot Password",
     "login": "Login",
+    "loggingIn": "Logging in...",
     "register": "Register",
     "title": "Welcome Back!",
     "subtitle": "Please enter your information to log in.",
     "loginWithGoogle": "Login with Google",
     "dontHaveAccount": "Don't have an account?",
     "passwordPlaceholder": "Enter your password",
-    "emailPlaceholder": "you@example.com"
+    "emailPlaceholder": "you@example.com",
+    "otpTitle": "Check your email",
+    "otpSubtitle": "We sent a verification code to {email}",
+    "otpLabel": "One-time code",
+    "otpMustBe6Digits": "Code must be 6 digits",
+    "otpMustBeDigits": "Code must contain only digits",
+    "otpVerify": "Verify",
+    "otpVerifying": "Verifying...",
+    "otpResendCode": "Resend code",
+    "otpCountDown": "Resend code ({countdown})",
+    "otpInvalidCode": "Invalid code",
+    "otpSwitchAccountAction": "Switch account",
+    "otpSwitchAccount": "Wrong email?",
+    "otpResentSuccess": "A new verification code has been sent to {email}.",
+    "otpResendTooSoon": "Please wait before requesting another code."
   }
 }

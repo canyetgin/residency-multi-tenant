@@ -32,12 +32,27 @@
     "email": "E-posta",
     "forgotPassword": "Şifremi Unuttum",
     "login": "Giriş Yap",
+    "loggingIn": "Giriş Yapılıyor...",
     "register": "Kayıt Ol",
     "title": "Tekrardan Hoşgeldiniz!",
     "subtitle": "Lütfen giriş yapmak için bilgilerinizi giriniz.",
     "loginWithGoogle": "Google ile Giriş Yap",
     "dontHaveAccount": "Hesabınız yok mu?",
     "passwordPlaceholder": "Şifrenizi giriniz",
-    "emailPlaceholder": "siz@örnek.com"
+    "emailPlaceholder": "siz@örnek.com",
+    "otpTitle": "E-postanızı kontrol edin",
+    "otpSubtitle": "{email} adresine bir doğrulama kodu gönderdik",
+    "otpLabel": "Tek Kullanımlık Kod",
+    "otpMustBe6Digits": "Kod 6 haneli olmalıdır",
+    "otpMustBeDigits": "Kod yalnızca rakamlardan oluşmalıdır",
+    "otpVerify": "Doğrula",
+    "otpVerifying": "Doğrulanıyor...",
+    "otpResendCode": "Kodu tekrar gönder",
+    "otpCountDown": "Tekrar kod gönder ({countdown})",
+    "otpInvalidCode": "Kod hatalı",
+    "otpSwitchAccountAction": "Hesap değiştir",
+    "otpSwitchAccount": "E-posta yanlış mı?",
+    "otpResentSuccess": "{email} adresine yeni bir doğrulama kodu gönderildi.",
+    "otpResendTooSoon": "Yeni bir kod istemeden önce lütfen biraz bekleyin."
   }
 }

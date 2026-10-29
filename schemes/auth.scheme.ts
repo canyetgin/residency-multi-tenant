@@ -24,3 +24,9 @@ export const registerSchema = z.object({
 })
 
 export type registerSchemeValues = z.infer<typeof registerSchema>
+
+export const OTPSchema = z.object({
+  otp: z.string().length(6, "otpMustBe6Digits").regex(/^\d+$/, "otpMustBeDigits"),
+})
+
+export type OTPSchemeValues = z.infer<typeof OTPSchema>
