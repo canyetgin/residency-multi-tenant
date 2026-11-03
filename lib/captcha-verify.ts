@@ -8,6 +8,14 @@ export const CAPTCHA_ERROR_CODES = [
   "captchaVerificationResponseInvalid",
   "captchaVerificationFailed",
   "captchaVerificationHostnameMismatch",
+  "captchaVerificationCouldNotProcess",
+] as const
+
+const TRUNSTILE_PROCCESING_TOKEN_ERROR_CODES: readonly string[] = [
+  "timeout-or-duplicate",
+  "invalid-input-response",
+  "bad-request",
+  "internal-error",
 ] as const
 
 export type CaptchaVerifyErrorCode = (typeof CAPTCHA_ERROR_CODES)[number]
@@ -52,13 +60,9 @@ export const captchaVerify = async ({ captchaToken }: { captchaToken: string }):
   const validationResult = validation.data
 
   if (!validationResult.success) {
-    if (
-      validationResult["error-codes"].includes("timeout-or-duplicate") ||
-      validationResult["error-codes"].includes("invalid-input-response")
-    ) {
-      throw new Error(
-        "Doğrulama süresi doldu veya güvenlik anahtarı geçersiz. Lütfen tekrar deneyin."
-      )
+    const errorCodes = validationResult["error-codes"]
+    if (errorCodes.some((code) => TRUNSTILE_PROCCESING_TOKEN_ERROR_CODES.includes(code))) {
+      throw new Error("captchaVerificationCouldNotProcess")
     }
 
     throw new Error("captchaVerificationFailed")

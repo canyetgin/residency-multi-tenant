@@ -11,9 +11,10 @@ import {
 } from "@/schemes/auth.scheme"
 import { cookies } from "next/headers"
 import {
+  AUTH_ACTION_ERROR_CODES,
   AUTH_ERROR_CODES,
+  AUTH_OTP_ACTION_ERROR_CODES,
   AUTH_OTP_COOKIE_NAME,
-  AUTH_OTP_ERROR_CODES,
   AUTH_OTP_RESEND_DELAY,
   AUTH_SESSION_COOKIE_NAME,
   AUTH_SESSION_COOKIE_OPTIONS,
@@ -53,7 +54,7 @@ export async function loginAction(values: loginSchemeValues): Promise<AuthAction
       success: false,
       error: resolveTypedError({
         error,
-        allowedErrors: AUTH_ERROR_CODES,
+        allowedErrors: AUTH_ACTION_ERROR_CODES,
         fallback: "somethingWentWrong",
       }),
     }
@@ -88,7 +89,7 @@ export async function otpResendAction(): Promise<OTPResendActionResponse> {
       success: false,
       error: resolveTypedError({
         error,
-        allowedErrors: AUTH_OTP_ERROR_CODES,
+        allowedErrors: AUTH_OTP_ACTION_ERROR_CODES,
         fallback: "somethingWentWrong",
       }),
     }
@@ -144,7 +145,7 @@ export async function otpResetSessionAction(): Promise<OTPResetSessionActionResp
       success: false,
       error: resolveTypedError({
         error,
-        allowedErrors: AUTH_OTP_ERROR_CODES,
+        allowedErrors: AUTH_OTP_ACTION_ERROR_CODES,
         fallback: "somethingWentWrong",
       }),
     }

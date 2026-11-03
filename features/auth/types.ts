@@ -1,8 +1,7 @@
-import type { CaptchaVerifyErrorCode } from "@/lib/captcha-verify"
-import type { AUTH_ERROR_CODES, AUTH_OTP_ERROR_CODES } from "./constants"
+import type { AUTH_ACTION_ERROR_CODES, AUTH_OTP_ACTION_ERROR_CODES } from "./constants"
 
-export type AuthErrorCode = (typeof AUTH_ERROR_CODES)[number]
-export type AuthOtpErrorCode = (typeof AUTH_OTP_ERROR_CODES)[number]
+export type AuthActionErrorCode = (typeof AUTH_ACTION_ERROR_CODES)[number]
+export type AuthOtpActionErrorCode = (typeof AUTH_OTP_ACTION_ERROR_CODES)[number]
 
 export type AuthActionResponse =
   | {
@@ -11,7 +10,7 @@ export type AuthActionResponse =
     }
   | {
       success: false
-      error: AuthErrorCode | CaptchaVerifyErrorCode
+      error: AuthActionErrorCode
     }
 
 export type OTPResendActionResponse =
@@ -22,7 +21,7 @@ export type OTPResendActionResponse =
     }
   | {
       success: false
-      error: AuthOtpErrorCode
+      error: AuthOtpActionErrorCode
       expiresAt?: never
     }
 
@@ -33,7 +32,7 @@ export type OTPResetSessionActionResponse =
     }
   | {
       success: false
-      error: AuthOtpErrorCode
+      error: AuthOtpActionErrorCode
     }
 
 export type GetOTPStateQueryResponse = {

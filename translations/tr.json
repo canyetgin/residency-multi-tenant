@@ -74,6 +74,7 @@
     "captchaVerificationServiceUnavailable": "CAPTCHA doğrulama hizmeti şu anda kullanılamıyor. Lütfen daha sonra tekrar deneyin.",
     "captchaVerificationResponseInvalid": "CAPTCHA doğrulama yanıtı geçersiz. Lütfen tekrar deneyin.",
     "captchaVerificationFailed": "CAPTCHA doğrulaması başarısız oldu. Lütfen tekrar deneyin.",
-    "captchaVerificationHostnameMismatch": "CAPTCHA doğrulama ana bilgisayar adı uyuşmuyor. Lütfen tekrar deneyin."
+    "captchaVerificationHostnameMismatch": "CAPTCHA doğrulama ana bilgisayar adı uyuşmuyor. Lütfen tekrar deneyin.",
+    "captchaVerificationCouldNotProcess": "CAPTCHA doğrulaması zaman aşımına uğradı veya CAPTCHA kodu geçersiz. Lütfen tekrar deneyin."
   }
 }

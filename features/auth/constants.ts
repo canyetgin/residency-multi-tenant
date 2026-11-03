@@ -1,3 +1,4 @@
+import { CAPTCHA_ERROR_CODES } from "@/lib/captcha-verify"
 import "server-only"
 
 export const AUTH_ERROR_CODES = [
@@ -8,7 +9,9 @@ export const AUTH_ERROR_CODES = [
   "somethingWentWrong",
 ] as const
 
-export const AUTH_OTP_ERROR_CODES = ["otpResendTooSoon", "somethingWentWrong"] as const
+export const AUTH_ACTION_ERROR_CODES = [...AUTH_ERROR_CODES, ...CAPTCHA_ERROR_CODES] as const
+
+export const AUTH_OTP_ACTION_ERROR_CODES = ["otpResendTooSoon", "somethingWentWrong"] as const
 
 export const AUTH_SESSION_COOKIE_NAME = "session_token"
 export const AUTH_OTP_COOKIE_NAME = "auth_otp_expires_at"

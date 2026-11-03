@@ -9,7 +9,7 @@ const turnstileSuccessSchema = z.object({
   cdata: z.string().optional(),
   metadata: z
     .object({
-      ephemeral_id: z.string(),
+      interactive: z.boolean(),
     })
     .optional(),
 })

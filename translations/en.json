@@ -74,6 +74,7 @@
     "captchaVerificationServiceUnavailable": "CAPTCHA verification service is currently unavailable. Please try again later.",
     "captchaVerificationResponseInvalid": "CAPTCHA verification response is invalid. Please try again.",
     "captchaVerificationFailed": "CAPTCHA verification failed. Please try again.",
-    "captchaVerificationHostnameMismatch": "CAPTCHA verification hostname mismatch. Please try again."
+    "captchaVerificationHostnameMismatch": "CAPTCHA verification hostname mismatch. Please try again.",
+    "captchaVerificationCouldNotProcess": "CAPTCHA verification timed out or CAPTCHA code is invalid. Please try again."
   }
 }
