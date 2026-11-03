@@ -2,6 +2,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { Toaster } from "@/components/ui/toast"
 import { routing } from "@/i18n/routing"
 import { cn } from "@/lib/utils"
+import { Metadata } from "next"
 import { NextIntlClientProvider } from "next-intl"
 import { getLocale, getTranslations } from "next-intl/server"
 import { Geist_Mono, Instrument_Sans } from "next/font/google"
@@ -14,11 +15,14 @@ const fontMono = Geist_Mono({
   variable: "--font-mono",
 })
 
-export async function generateMetadata() {
+export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("metadata")
 
   return {
-    title: t("title"),
+    title: {
+      default: t("title"),
+      template: `%s | Residency`,
+    },
     description: t("description"),
   }
 }

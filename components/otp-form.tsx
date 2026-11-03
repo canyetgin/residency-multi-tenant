@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Field, FieldError, FieldGroup } from "@/components/ui/field"
 import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from "@/components/ui/input-otp"
 import { toast } from "@/components/ui/toast"
-import { resendOtpAction, resetOtpSessionAction, verifyOtpAction } from "@/features/actions/auth"
+import { otpResendAction, otpResetSessionAction, otpVerifyAction } from "@/features/auth/actions"
 import { useRouter } from "@/i18n/navigation"
 import { OTPSchema, type OTPSchemeValues } from "@/schemes/auth.scheme"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -13,7 +13,7 @@ import { useTranslations } from "next-intl"
 import { useEffect, useRef, useState, useTransition } from "react"
 import { Controller, useForm } from "react-hook-form"
 
-const DIGITS_ONLY = "^\\d+$"
+const DIGITS_ONLY_PATTERN = "^\\d+$"
 
 type OTPFormProps = {
   expiresAt: number
@@ -35,12 +35,8 @@ export const OTPForm = ({ expiresAt, initialCountdown }: OTPFormProps) => {
     defaultValues: {
       otp: "",
     },
-    //need to unregister each time for security concerns. if user on verify page wanna switch account, then comes to verify again, it should never shows old values
-    shouldUnregister: true,
     resolver: zodResolver(OTPSchema),
   })
-
-  const { isSubmitting } = formState
 
   useEffect(() => {
     const updateCountdown = () => {
@@ -63,7 +59,7 @@ export const OTPForm = ({ expiresAt, initialCountdown }: OTPFormProps) => {
   const handleResend = () => {
     reset()
     startTransitionResend(async () => {
-      const res = await resendOtpAction()
+      const res = await otpResendAction()
 
       if (!res.success) {
         toast.add({
@@ -87,7 +83,7 @@ export const OTPForm = ({ expiresAt, initialCountdown }: OTPFormProps) => {
   }
 
   const onSubmit = handleSubmit(async (values) => {
-    const res = await verifyOtpAction(values)
+    const res = await otpVerifyAction(values)
 
     if (!res.success) {
       return toast.add({
@@ -97,21 +93,26 @@ export const OTPForm = ({ expiresAt, initialCountdown }: OTPFormProps) => {
     }
 
     router.replace("/dashboard")
+    //need to unregister each time for security concerns. if user on verify page wanna switch account,
+    //it wont render old inputs. we needed this bc of behavior of cached compoenents in nextjs 16.4
+    reset()
   })
 
   const handleSwitchAccount = () => {
-    reset()
     startTransitionSwitch(async () => {
-      const res = await resetOtpSessionAction()
+      const res = await otpResetSessionAction()
 
       if (res.success) {
         router.replace("/login")
+        //need to unregister each time for security concerns. if user on verify page wanna switch account,
+        //it wont render old inputs. we needed this bc of behavior of cached compoenents in nextjs 16.4
+        reset()
       }
     })
   }
 
   const isCountingDown = countdown > 0
-
+  const { isSubmitting } = formState
   const isDisabled = isSubmitting || isPendingSwitch || isPendingResend
 
   return (
@@ -143,9 +144,10 @@ export const OTPForm = ({ expiresAt, initialCountdown }: OTPFormProps) => {
                   id="otp-verification"
                   maxLength={6}
                   autoComplete="one-time-code"
+                  pattern={DIGITS_ONLY_PATTERN}
                   aria-label={t("otpLabel")}
-                  pattern={DIGITS_ONLY}
                   aria-invalid={fieldState.invalid}
+                  aria-disabled={isDisabled}
                   disabled={isDisabled}
                   {...field}
                 >

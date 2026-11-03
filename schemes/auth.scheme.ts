@@ -3,6 +3,7 @@ import { z } from "zod"
 const authBaseFields = {
   email: z.email("invalidEmail"),
   password: z.string().min(8, "passwordTooShort"),
+  captchaToken: z.string().min(1, "invalidCaptcha"),
 }
 
 export const loginSchema = z.object({

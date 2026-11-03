@@ -1,6 +1,15 @@
-import { getOtpState, getSession } from "@/features/queries/auth"
+import { getOtpState, getSession } from "@/features/auth/queries"
 import { redirect } from "@/i18n/navigation"
-import { getLocale } from "next-intl/server"
+import { Metadata } from "next"
+import { getLocale, getTranslations } from "next-intl/server"
+
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("metadata.registerPage")
+  return {
+    title: t("title"),
+    description: t("description"),
+  }
+}
 
 //content need to be fresh and uncached for security reasons. this ignores the appshell and waits for OTP Cookie.
 export const instant = false

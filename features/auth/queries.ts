@@ -1,30 +1,19 @@
 import "server-only"
 
 import { cookies } from "next/headers"
-import { connection } from "next/server"
-
-const OTP_COOKIE_NAME = "otp_expires_at"
-const SESSION_COOKIE_NAME = "session_token"
+import { AUTH_OTP_COOKIE_NAME, AUTH_SESSION_COOKIE_NAME } from "./constants"
+import { GetOTPStateQueryResponse } from "./types"
 
 export async function getSession(): Promise<boolean> {
-  await connection()
-
   const cookieStore = await cookies()
-  const sessionCookie = cookieStore.get(SESSION_COOKIE_NAME)
+  const sessionCookie = cookieStore.get(AUTH_SESSION_COOKIE_NAME)
 
   return Boolean(sessionCookie?.value)
 }
 
-type QueryResponse = {
-  expiresAt: number
-  remaining: number
-} | null
-
-export async function getOtpState(): Promise<QueryResponse> {
-  await connection()
-
+export async function getOtpState(): Promise<GetOTPStateQueryResponse> {
   const cookieStore = await cookies()
-  const expiresAtCookie = cookieStore.get(OTP_COOKIE_NAME)
+  const expiresAtCookie = cookieStore.get(AUTH_OTP_COOKIE_NAME)
 
   if (!expiresAtCookie) {
     return null

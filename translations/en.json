@@ -1,7 +1,19 @@
 {
   "metadata": {
     "title": "Residency | Apartment Management and Dues Payments",
-    "description": "Residency Multi-Tenant is a multi-tenant application that allows users to securely and efficiently manage their dues payments and apartment management."
+    "description": "Residency is a multi-tenant platform for managing apartments and dues payments securely and efficiently.",
+    "loginPage": {
+      "title": "Sign in",
+      "description": "Sign in to your account to continue."
+    },
+    "verifyOTPPage": {
+      "title": "Verify your code",
+      "description": "Enter the verification code sent to your email."
+    },
+    "registerPage": {
+      "title": "Create account",
+      "description": "Create your account to get started."
+    }
   },
   "requests": {
     "notFound": {
@@ -22,6 +34,7 @@
   "auth": {
     "invalidEmail": "Please enter a valid email address.",
     "passwordTooShort": "Password must be at least 8 characters long.",
+    "invalidCaptcha": "Please complete the CAPTCHA",
     "organizationNameRequired": "Organization name is required.",
     "invalidPhoneNumber": "Invalid phone number format.",
     "phoneTooShort": "Phone number must be at least 10 digits long.",
@@ -55,6 +68,12 @@
     "otpResentSuccess": "A new verification code has been sent to {email}.",
     "otpResendTooSoon": "Please wait before requesting another code.",
     "loginInvalidCredentials": "Invalid email or password.",
-    "invalidRequest": "Invalid request."
+    "invalidRequest": "Invalid request.",
+    "somethingWentWrong": "Something went wrong while processing your request. Please try again.",
+    "captchaVerificationNotConfigured": "CAPTCHA verification is not configured.",
+    "captchaVerificationServiceUnavailable": "CAPTCHA verification service is currently unavailable. Please try again later.",
+    "captchaVerificationResponseInvalid": "CAPTCHA verification response is invalid. Please try again.",
+    "captchaVerificationFailed": "CAPTCHA verification failed. Please try again.",
+    "captchaVerificationHostnameMismatch": "CAPTCHA verification hostname mismatch. Please try again."
   }
 }
