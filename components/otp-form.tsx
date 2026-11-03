@@ -103,7 +103,7 @@ export const OTPForm = ({ expiresAt, initialCountdown }: OTPFormProps) => {
       const res = await otpResetSessionAction()
 
       if (res.success) {
-        router.replace("/login")
+        router.replace("/auth/login")
         //need to unregister each time for security concerns. if user on verify page wanna switch account,
         //it wont render old inputs. we needed this bc of behavior of cached compoenents in nextjs 16.4
         reset()

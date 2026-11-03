@@ -43,7 +43,7 @@ export const LoginForm = () => {
       turnstileRef?.current?.reset()
       return
     }
-    router.replace("/login/verify")
+    router.replace("/auth/verify")
     //need to unregister form and also get fresh captchaToken each time for security concerns.
     // if user on verify page wanna switch account, it wont render old inputs and old captchaToken.
     // we needed this bc of behavior of cached compoenents in nextjs 16.4

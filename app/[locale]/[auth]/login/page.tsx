@@ -1,11 +1,11 @@
-import { OTPForm } from "@/components/otp-form"
+import { LoginForm } from "@/components/login-form"
 import { getOtpState, getSession } from "@/features/auth/queries"
 import { redirect } from "@/i18n/navigation"
 import { Metadata } from "next"
 import { getLocale, getTranslations } from "next-intl/server"
 
 export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations("metadata.verifyOTPPage")
+  const t = await getTranslations("metadata.loginPage")
   return {
     title: t("title"),
     description: t("description"),
@@ -15,26 +15,22 @@ export async function generateMetadata(): Promise<Metadata> {
 //content need to be fresh and uncached for security reasons. this ignores the appshell and waits for OTP Cookie.
 export const instant = false
 
-export default async function OTPPage() {
+export default async function LoginPage() {
   const locale = await getLocale()
 
   const hasSession = await getSession()
-
   if (hasSession) {
-    return redirect({
-      href: "/dashboard",
-      locale,
-    })
+    return redirect({ href: "/dashboard", locale })
   }
 
   const otpState = await getOtpState()
 
-  if (!otpState) {
+  if (otpState) {
     return redirect({
-      href: "/login",
+      href: "/auth/verify",
       locale,
     })
   }
 
-  return <OTPForm expiresAt={otpState.expiresAt} initialCountdown={otpState.remaining} />
+  return <LoginForm />
 }

@@ -1,11 +1,10 @@
-import { LoginForm } from "@/components/login-form"
 import { getOtpState, getSession } from "@/features/auth/queries"
 import { redirect } from "@/i18n/navigation"
 import { Metadata } from "next"
 import { getLocale, getTranslations } from "next-intl/server"
 
 export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations("metadata.loginPage")
+  const t = await getTranslations("metadata.registerPage")
   return {
     title: t("title"),
     description: t("description"),
@@ -15,7 +14,7 @@ export async function generateMetadata(): Promise<Metadata> {
 //content need to be fresh and uncached for security reasons. this ignores the appshell and waits for OTP Cookie.
 export const instant = false
 
-export default async function LoginPage() {
+export default async function RegisterPage() {
   const locale = await getLocale()
 
   const hasSession = await getSession()
@@ -27,10 +26,10 @@ export default async function LoginPage() {
 
   if (otpState) {
     return redirect({
-      href: "/login/verify",
+      href: "/auth/verify",
       locale,
     })
   }
 
-  return <LoginForm />
+  return <p>Register</p>
 }
