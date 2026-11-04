@@ -2,7 +2,6 @@
 
 import { Button } from "@/components/ui/button"
 import { useRouter } from "@/i18n/navigation"
-import { cn } from "@/lib/utils"
 import { cva, type VariantProps } from "class-variance-authority"
 import { ArrowLeft } from "lucide-react"
 import { useTranslations } from "next-intl"
@@ -11,7 +10,7 @@ const backButtonVariants = cva("", {
   variants: {
     variant: {
       text: "",
-      icon: "size-9 p-0 h-[1.2rem] w-[1.2rem]",
+      icon: "size-9 p-0",
     },
   },
   defaultVariants: {
@@ -21,19 +20,20 @@ const backButtonVariants = cva("", {
 
 type BackButtonProps = VariantProps<typeof backButtonVariants>
 
+type BrowserNavigation = {
+  canGoBack: boolean
+}
+
 export function BackButton({ variant }: BackButtonProps) {
   const router = useRouter()
   const t = useTranslations("general")
 
   const handleBack = () => {
-    if ("navigation" in window) {
-      const { currentEntry } = window.navigation
-      const previousEntry = window.navigation.entries()[(currentEntry?.index ?? 0) - 1]
+    const navigation = (window as Window & { navigation?: BrowserNavigation }).navigation
 
-      if (previousEntry) {
-        router.back()
-        return
-      }
+    if (navigation?.canGoBack) {
+      router.back()
+      return
     }
 
     router.replace("/")
@@ -45,7 +45,7 @@ export function BackButton({ variant }: BackButtonProps) {
     <Button
       type="button"
       variant="secondary"
-      className={cn(backButtonVariants({ variant }))}
+      className={backButtonVariants({ variant })}
       aria-label={isIconOnly ? t("goBack") : undefined}
       onClick={handleBack}
     >
