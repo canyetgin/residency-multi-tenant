@@ -5,7 +5,7 @@ import { Moon, Sun } from "lucide-react"
 import { useTranslations } from "next-intl"
 import { Button } from "./ui/button"
 
-export function ThemeSwitcher() {
+export const ThemeSwitcher = () => {
   const { resolvedTheme, setTheme } = useTheme<"light" | "dark">()
   const t = useTranslations("themeSwitcher")
   const hydrated = useHydrated()

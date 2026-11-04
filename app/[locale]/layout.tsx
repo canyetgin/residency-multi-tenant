@@ -6,7 +6,7 @@ import { Metadata } from "next"
 import { NextIntlClientProvider } from "next-intl"
 import { getLocale, getTranslations } from "next-intl/server"
 import { Geist_Mono, Instrument_Sans } from "next/font/google"
-import "./globals.css"
+import "../globals.css"
 
 const instrumentSans = Instrument_Sans({ subsets: ["latin"], variable: "--font-sans" })
 

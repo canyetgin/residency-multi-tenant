@@ -1,4 +1,7 @@
 {
+  "general": {
+    "goBack": "Go Back"
+  },
   "metadata": {
     "title": "Residency | Apartment Management and Dues Payments",
     "description": "Residency is a multi-tenant platform for managing apartments and dues payments securely and efficiently.",
@@ -13,12 +16,17 @@
     "registerPage": {
       "title": "Create account",
       "description": "Create your account to get started."
+    },
+    "404Page": {
+      "title": "Oops! Page Not Found",
+      "description": "The page you are looking for does not exist.Please check the URL or return to the homepage."
     }
   },
-  "requests": {
-    "notFound": {
-      "title": "Page Not Found",
-      "description": "The page you are looking for does not exist. Please check the URL or return to the homepage.",
+  "pages": {
+    "404Page": {
+      "title": "Oops! Page Not Found",
+      "heading": "Oops!",
+      "description": "The page you are looking for does not exist.\nPlease check the URL.",
       "buttonText": "Go to Homepage"
     }
   },
@@ -62,7 +70,8 @@
     "otpVerifying": "Verifying...",
     "otpResendCode": "Resend code",
     "otpCountDown": "Resend code ({countdown})",
-    "otpInvalidCode": "Invalid code",
+    "otpInvalidCode": "Invalid code.",
+    "otpExpired": "Your verification code has expired. Please request a new one.",
     "otpSwitchAccountAction": "Switch account",
     "otpSwitchAccount": "Wrong email?",
     "otpResentSuccess": "A new verification code has been sent to {email}.",

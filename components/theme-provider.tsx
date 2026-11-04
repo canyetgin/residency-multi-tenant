@@ -4,7 +4,7 @@ import { useTheme } from "@wrksz/themes/client"
 import { ThemeProvider as NextThemesProvider } from "@wrksz/themes/next/extended"
 import * as React from "react"
 
-function ThemeProvider({ children }: React.ComponentProps<typeof NextThemesProvider>) {
+export const ThemeProvider = ({ children }: React.ComponentProps<typeof NextThemesProvider>) => {
   return (
     <NextThemesProvider
       storage="hybrid"
@@ -19,7 +19,7 @@ function ThemeProvider({ children }: React.ComponentProps<typeof NextThemesProvi
   )
 }
 
-function isTypingTarget(target: EventTarget | null) {
+const isTypingTarget = (target: EventTarget | null) => {
   if (!(target instanceof HTMLElement)) {
     return false
   }
@@ -32,7 +32,7 @@ function isTypingTarget(target: EventTarget | null) {
   )
 }
 
-function ThemeHotkey() {
+const ThemeHotkey = () => {
   const { resolvedTheme, setTheme } = useTheme()
 
   React.useEffect(() => {
@@ -65,5 +65,3 @@ function ThemeHotkey() {
 
   return null
 }
-
-export { ThemeProvider }

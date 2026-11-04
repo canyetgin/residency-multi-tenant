@@ -11,7 +11,7 @@ export const CAPTCHA_ERROR_CODES = [
   "captchaVerificationCouldNotProcess",
 ] as const
 
-const TRUNSTILE_PROCCESING_TOKEN_ERROR_CODES: readonly string[] = [
+const TRUNSTILE_EXPECTED_TOKEN_ERROR_CODES: readonly string[] = [
   "timeout-or-duplicate",
   "invalid-input-response",
   "bad-request",
@@ -61,7 +61,7 @@ export const captchaVerify = async ({ captchaToken }: { captchaToken: string }):
 
   if (!validationResult.success) {
     const errorCodes = validationResult["error-codes"]
-    if (errorCodes.some((code) => TRUNSTILE_PROCCESING_TOKEN_ERROR_CODES.includes(code))) {
+    if (errorCodes.some((code) => TRUNSTILE_EXPECTED_TOKEN_ERROR_CODES.includes(code))) {
       throw new Error("captchaVerificationCouldNotProcess")
     }
 

@@ -1,6 +1,7 @@
 import { LocaleSwitcher } from "@/components/locale-switcher"
 import { ThemeSwitcher } from "@/components/theme-switcher"
 import { Button } from "@/components/ui/button"
+import { Link } from "@/i18n/navigation"
 
 export default function Page() {
   return (
@@ -16,6 +17,7 @@ export default function Page() {
           (Press <kbd>d</kbd> to toggle dark mode)
         </div>
       </div>
+      <Link href="/to-non-existing-page">To Non Existing Page</Link>
       <ThemeSwitcher />
       <LocaleSwitcher />
     </div>

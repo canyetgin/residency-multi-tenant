@@ -16,7 +16,7 @@ import { useLocale, useTranslations } from "next-intl"
 import { useParams } from "next/navigation"
 import { useTransition } from "react"
 
-export function LocaleSwitcher() {
+export const LocaleSwitcher = () => {
   const router = useRouter()
   const [isPending, startTransition] = useTransition()
   const pathname = usePathname()

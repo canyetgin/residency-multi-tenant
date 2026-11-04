@@ -4,6 +4,22 @@ import "server-only"
 export const OTP_DEFAULT_COOKIE_NAME = "otp_expires_at"
 export const OTP_DEFAULT_RESEND_DELAY = 60
 
+const OTP_DEFAULT_COOKIE_OPTIONS = {
+  httpOnly: true,
+  secure: process.env.NODE_ENV === "production",
+  sameSite: "lax" as const,
+  path: "/",
+}
+
+export const OTP_ERROR_CODES = [
+  "otpInvalidCode",
+  "otpExpired",
+  "invalidRequest",
+  "somethingWentWrong",
+] as const
+
+export type OTPErrorCode = (typeof OTP_ERROR_CODES)[number]
+
 type OTPSetCookieParamsType = {
   resendDelay?: number
   cookieName?: string
@@ -11,13 +27,6 @@ type OTPSetCookieParamsType = {
 
 type OTPDeleteCookieParamsType = {
   cookieName?: string
-}
-
-const OTP_DEFAULT_COOKIE_OPTIONS = {
-  httpOnly: true,
-  secure: process.env.NODE_ENV === "production",
-  sameSite: "lax" as const,
-  path: "/",
 }
 
 export async function otpSetCookie({

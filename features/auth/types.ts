@@ -1,39 +1,29 @@
-import type { AUTH_ACTION_ERROR_CODES, AUTH_OTP_ACTION_ERROR_CODES } from "./constants"
+import { OTPErrorCode } from "@/lib/otp-cookie"
+import type { AUTH_ACTION_ERROR_CODES } from "./constants"
 
 export type AuthActionErrorCode = (typeof AUTH_ACTION_ERROR_CODES)[number]
-export type AuthOtpActionErrorCode = (typeof AUTH_OTP_ACTION_ERROR_CODES)[number]
 
-export type AuthActionResponse =
-  | {
-      success: true
-      error?: never
-    }
-  | {
-      success: false
-      error: AuthActionErrorCode
-    }
+export type AuthActionResponse = {
+  error: AuthActionErrorCode
+}
 
 export type OTPResendActionResponse =
   | {
       success: true
       expiresAt: number
-      error?: never
     }
   | {
       success: false
-      error: AuthOtpActionErrorCode
-      expiresAt?: never
+      error: OTPErrorCode
     }
 
-export type OTPResetSessionActionResponse =
-  | {
-      success: true
-      error?: never
-    }
-  | {
-      success: false
-      error: AuthOtpActionErrorCode
-    }
+export type OTPResetSessionActionResponse = {
+  error: OTPErrorCode
+}
+
+export type OTPVerifyActionResponse = {
+  error: OTPErrorCode
+}
 
 export type GetOTPStateQueryResponse = {
   expiresAt: number

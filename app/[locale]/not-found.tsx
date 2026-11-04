@@ -1,1 +1,1 @@
-export { default } from "@/components/not-found"
+export { NotFoundLayout as default } from "@/components/not-found-layout"

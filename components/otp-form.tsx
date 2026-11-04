@@ -5,14 +5,12 @@ import { Field, FieldError, FieldGroup } from "@/components/ui/field"
 import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from "@/components/ui/input-otp"
 import { toast } from "@/components/ui/toast"
 import { otpResendAction, otpResetSessionAction, otpVerifyAction } from "@/features/auth/actions"
-import { useRouter } from "@/i18n/navigation"
 import { OTPSchema, type OTPSchemeValues } from "@/schemes/auth.scheme"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { MailIcon, RefreshCwIcon } from "lucide-react"
 import { useTranslations } from "next-intl"
 import { useEffect, useRef, useState, useTransition } from "react"
 import { Controller, useForm } from "react-hook-form"
-
 const DIGITS_ONLY_PATTERN = "^\\d+$"
 
 type OTPFormProps = {
@@ -22,7 +20,6 @@ type OTPFormProps = {
 
 export const OTPForm = ({ expiresAt, initialCountdown }: OTPFormProps) => {
   const t = useTranslations("auth")
-  const router = useRouter()
 
   const overriddenExpiresAtRef = useRef<number | null>(null)
 
@@ -84,30 +81,15 @@ export const OTPForm = ({ expiresAt, initialCountdown }: OTPFormProps) => {
 
   const onSubmit = handleSubmit(async (values) => {
     const res = await otpVerifyAction(values)
-
-    if (!res.success) {
-      return toast.add({
-        type: "error",
-        description: t(res.error),
-      })
-    }
-
-    router.replace("/dashboard")
-    //need to unregister each time for security concerns. if user on verify page wanna switch account,
-    //it wont render old inputs. we needed this bc of behavior of cached compoenents in nextjs 16.4
-    reset()
+    return toast.add({
+      type: "error",
+      description: t(res.error),
+    })
   })
 
   const handleSwitchAccount = () => {
     startTransitionSwitch(async () => {
-      const res = await otpResetSessionAction()
-
-      if (res.success) {
-        router.replace("/auth/login")
-        //need to unregister each time for security concerns. if user on verify page wanna switch account,
-        //it wont render old inputs. we needed this bc of behavior of cached compoenents in nextjs 16.4
-        reset()
-      }
+      await otpResetSessionAction()
     })
   }
 
@@ -116,7 +98,7 @@ export const OTPForm = ({ expiresAt, initialCountdown }: OTPFormProps) => {
   const isDisabled = isSubmitting || isPendingSwitch || isPendingResend
 
   return (
-    <form className="flex w-full max-w-sm flex-col gap-6" onSubmit={onSubmit}>
+    <form className="w-full flex flex-col gap-6" onSubmit={onSubmit}>
       <div className="flex flex-col items-center gap-2 text-center">
         <div className="flex size-12 items-center justify-center rounded-full bg-primary/10">
           <MailIcon aria-hidden="true" className="size-6 text-primary" />

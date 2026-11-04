@@ -1,8 +1,9 @@
 "use server"
 
 import { captchaVerify } from "@/lib/captcha-verify"
-import { otpDeleteCookie, otpSetCookie } from "@/lib/otp-cookie"
+import { OTP_ERROR_CODES, otpDeleteCookie, otpSetCookie } from "@/lib/otp-cookie"
 import { resolveTypedError } from "@/lib/resolve-typed-errors"
+import { delay } from "@/lib/utils"
 import {
   loginSchema,
   OTPSchema,
@@ -10,20 +11,23 @@ import {
   type OTPSchemeValues,
 } from "@/schemes/auth.scheme"
 import { cookies } from "next/headers"
+import { redirect, RedirectType } from "next/navigation"
 import {
   AUTH_ACTION_ERROR_CODES,
-  AUTH_ERROR_CODES,
-  AUTH_OTP_ACTION_ERROR_CODES,
   AUTH_OTP_COOKIE_NAME,
   AUTH_OTP_RESEND_DELAY,
   AUTH_SESSION_COOKIE_NAME,
   AUTH_SESSION_COOKIE_OPTIONS,
 } from "./constants"
-import { AuthActionResponse, OTPResendActionResponse, OTPResetSessionActionResponse } from "./types"
+import {
+  AuthActionResponse,
+  OTPResendActionResponse,
+  OTPResetSessionActionResponse,
+  OTPVerifyActionResponse,
+} from "./types"
 
-//TODO - remove this delay function when will implement better auth,
+//TODO - remove all delay functions when will implement better auth,
 // it's only for simulating network latency during development
-const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
 export async function loginAction(values: loginSchemeValues): Promise<AuthActionResponse> {
   try {
@@ -38,20 +42,15 @@ export async function loginAction(values: loginSchemeValues): Promise<AuthAction
 
     await delay(2000)
 
-    const isValidCredentials = Boolean(email && password)
+    const isValidCredentials = Boolean(email === "can@can.com" && password)
 
     if (!isValidCredentials) {
-      throw new Error("invalidCredentials")
+      throw new Error("loginInvalidCredentials")
     }
 
     await otpSetCookie({ resendDelay: AUTH_OTP_RESEND_DELAY, cookieName: AUTH_OTP_COOKIE_NAME })
-
-    return {
-      success: true,
-    }
   } catch (error: unknown) {
     return {
-      success: false,
       error: resolveTypedError({
         error,
         allowedErrors: AUTH_ACTION_ERROR_CODES,
@@ -59,6 +58,7 @@ export async function loginAction(values: loginSchemeValues): Promise<AuthAction
       }),
     }
   }
+  return redirect("/auth/verify", RedirectType.replace)
 }
 
 export async function otpResendAction(): Promise<OTPResendActionResponse> {
@@ -66,11 +66,16 @@ export async function otpResendAction(): Promise<OTPResendActionResponse> {
     const cookieStore = await cookies()
     const currentOtp = cookieStore.get(AUTH_OTP_COOKIE_NAME)
 
-    if (currentOtp) {
-      const currentExpiresAt = Number(currentOtp.value)
+    if (!currentOtp) throw new Error("invalidRequest")
 
-      if (Number.isFinite(currentExpiresAt) && currentExpiresAt > Date.now())
-        throw new Error("otpResendTooSoon")
+    const currentExpiresAt = Number(currentOtp.value)
+
+    if (!Number.isFinite(currentExpiresAt)) {
+      throw new Error("invalidRequest")
+    }
+
+    if (currentExpiresAt > Date.now()) {
+      throw new Error("otpResendTooSoon")
     }
 
     await delay(2000)
@@ -89,18 +94,35 @@ export async function otpResendAction(): Promise<OTPResendActionResponse> {
       success: false,
       error: resolveTypedError({
         error,
-        allowedErrors: AUTH_OTP_ACTION_ERROR_CODES,
+        allowedErrors: OTP_ERROR_CODES,
         fallback: "somethingWentWrong",
       }),
     }
   }
 }
 
-export async function otpVerifyAction(values: OTPSchemeValues): Promise<AuthActionResponse> {
+export async function otpVerifyAction(values: OTPSchemeValues): Promise<OTPVerifyActionResponse> {
   try {
     const validation = OTPSchema.safeParse(values)
 
     if (!validation.success) throw new Error("invalidRequest")
+
+    const cookieStore = await cookies()
+    const currentOtp = cookieStore.get(AUTH_OTP_COOKIE_NAME)
+
+    if (!currentOtp) {
+      throw new Error("invalidRequest")
+    }
+
+    const expiresAt = Number(currentOtp.value)
+
+    if (!Number.isFinite(expiresAt)) {
+      throw new Error("invalidRequest")
+    }
+
+    if (expiresAt <= Date.now()) {
+      throw new Error("otpExpired")
+    }
 
     await delay(2000)
 
@@ -108,7 +130,6 @@ export async function otpVerifyAction(values: OTPSchemeValues): Promise<AuthActi
 
     if (!isValid) throw new Error("otpInvalidCode")
 
-    const cookieStore = await cookies()
     await otpDeleteCookie({ cookieName: AUTH_OTP_COOKIE_NAME })
 
     cookieStore.set(
@@ -116,38 +137,30 @@ export async function otpVerifyAction(values: OTPSchemeValues): Promise<AuthActi
       "valid_user_session_token",
       AUTH_SESSION_COOKIE_OPTIONS
     )
-
-    return {
-      success: true,
-    }
   } catch (error: unknown) {
     return {
-      success: false,
       error: resolveTypedError({
         error,
-        allowedErrors: AUTH_ERROR_CODES,
+        allowedErrors: OTP_ERROR_CODES,
         fallback: "somethingWentWrong",
       }),
     }
   }
+  return redirect("/dashboard", RedirectType.replace)
 }
 
 export async function otpResetSessionAction(): Promise<OTPResetSessionActionResponse> {
   try {
     await otpDeleteCookie({ cookieName: AUTH_OTP_COOKIE_NAME })
     await delay(2000)
-
-    return {
-      success: true,
-    }
   } catch (error: unknown) {
     return {
-      success: false,
       error: resolveTypedError({
         error,
-        allowedErrors: AUTH_OTP_ACTION_ERROR_CODES,
+        allowedErrors: OTP_ERROR_CODES,
         fallback: "somethingWentWrong",
       }),
     }
   }
+  return redirect("/auth/login", RedirectType.replace)
 }
