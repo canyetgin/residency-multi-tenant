@@ -5,13 +5,12 @@ import { Field, FieldError, FieldGroup } from "@/components/ui/field"
 import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from "@/components/ui/input-otp"
 import { toast } from "@/components/ui/toast"
 import { otpResendAction, otpResetSessionAction, otpVerifyAction } from "@/features/auth/actions"
-import { OTPSchema, type OTPSchemeValues } from "@/schemes/auth.scheme"
+import { OTP_DIGITS_ONLY_RULE, OTPSchema, type OTPSchemeValues } from "@/schemes/auth.scheme"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { MailIcon, RefreshCwIcon } from "lucide-react"
 import { useTranslations } from "next-intl"
 import { useEffect, useRef, useState, useTransition } from "react"
 import { Controller, useForm } from "react-hook-form"
-const DIGITS_ONLY_PATTERN = "^\\d+$"
 
 type OTPFormProps = {
   expiresAt: number
@@ -126,7 +125,7 @@ export const OTPForm = ({ expiresAt, initialCountdown }: OTPFormProps) => {
                   id="otp-verification"
                   maxLength={6}
                   autoComplete="one-time-code"
-                  pattern={DIGITS_ONLY_PATTERN}
+                  pattern={OTP_DIGITS_ONLY_RULE.source}
                   aria-label={t("otpLabel")}
                   aria-invalid={fieldState.invalid}
                   aria-disabled={isDisabled}

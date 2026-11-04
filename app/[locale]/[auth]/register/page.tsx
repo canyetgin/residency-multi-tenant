@@ -1,3 +1,4 @@
+import { RegisterForm } from "@/components/register-form"
 import { getOtpState, getSession } from "@/features/auth/queries"
 import { redirect } from "@/i18n/navigation"
 import { Metadata } from "next"
@@ -31,5 +32,5 @@ export default async function RegisterPage() {
     })
   }
 
-  return <p>Register</p>
+  return <RegisterForm />
 }
