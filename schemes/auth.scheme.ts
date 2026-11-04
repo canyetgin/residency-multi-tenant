@@ -13,7 +13,12 @@ export const PASSWORD_RULES = {
 
 export const OTP_DIGITS_ONLY_RULE = /^\d+$/
 
-export const ORGANIZATION_TYPES = ["management_company", "property_owner", "other"] as const
+export const ORGANIZATION_TYPES = [
+  "buildingManager",
+  "residentialComplexManager",
+  "propertyManagementCompany",
+  "other",
+] as const
 
 const authBaseFields = {
   email: z.email("invalidEmail"),
