@@ -16,9 +16,9 @@ export const metadata: Metadata = {
 export default async function AuthLayout({ children }: LayoutProps<"/[locale]">) {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center">
-      <div className="flex w-full flex-1 flex-col items-center justify-center px-4 py-8 max-w-sm">
+      <div className="flex w-full flex-1 flex-col items-center justify-center px-4 py-8">
         {children}
-        <div className="mt-6 flex w-full flex-nowrap items-center justify-center gap-2 text-sm text-muted-foreground">
+        <div className="mt-6 flex w-full max-w-sm flex-nowrap items-center justify-center gap-2 text-sm text-muted-foreground">
           <LocaleSwitcher />
           <ThemeSwitcher />
         </div>

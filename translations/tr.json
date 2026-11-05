@@ -84,6 +84,27 @@
     "captchaVerificationResponseInvalid": "CAPTCHA doğrulama yanıtı geçersiz. Lütfen tekrar deneyin.",
     "captchaVerificationFailed": "CAPTCHA doğrulaması başarısız oldu. Lütfen tekrar deneyin.",
     "captchaVerificationHostnameMismatch": "CAPTCHA doğrulama ana bilgisayar adı uyuşmuyor. Lütfen tekrar deneyin.",
-    "captchaVerificationCouldNotProcess": "CAPTCHA doğrulaması zaman aşımına uğradı veya CAPTCHA kodu geçersiz. Lütfen tekrar deneyin."
+    "captchaVerificationCouldNotProcess": "CAPTCHA doğrulaması zaman aşımına uğradı veya CAPTCHA kodu geçersiz. Lütfen tekrar deneyin.",
+    "firstNameLabel": "Ad",
+    "firstNamePlaceholder": "Adınızı girin",
+    "firstNameRequired": "Ad alanı zorunludur.",
+    "lastNameLabel": "Soyad",
+    "lastNamePlaceholder": "Soyadınızı girin",
+    "lastNameRequired": "Soyad alanı zorunludur.",
+    "phoneLabel": "Telefon numarası",
+    "phonePlaceholder": "Telefon numaranızı girin",
+    "phoneSelectCountry": "Ülke seçin",
+    "phoneChangeCountry": "Ülkeyi değiştir. Seçili ülke: {country}. Telefon kodu: {code}.",
+    "phoneCountrySearch": "Ülke veya telefon kodu ara...",
+    "phoneCountryNotFound": "Ülke bulunamadı.",
+    "phoneInternational": "Uluslararası",
+    "phoneSelected": "Seçili",
+    "invalidPhone": "Geçerli bir telefon numarası girin.",
+    "registerWithGoogle": "Google ile devam et",
+    "haveAccount": "Zaten hesabınız var mı?",
+    "registerTitle": "Hesap oluştur",
+    "registerSubtitle": "Başlamak için ilk adım.",
+    "registerAccountDetails": "Hesap bilgileri",
+    "registerPersonalInformation": "Kişisel bilgiler"
   }
 }

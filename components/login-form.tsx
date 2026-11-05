@@ -44,11 +44,11 @@ export const LoginForm = () => {
   const { isSubmitting } = formState
 
   return (
-    <form className="w-full" onSubmit={onSubmit}>
+    <form className="w-full max-w-sm" onSubmit={onSubmit}>
       <FieldGroup>
         <div className="flex flex-col gap-2 text-center">
-          <h1 className="font-bold text-2xl">{t("title")}</h1>
-          <p className="text-muted-foreground text-sm">{t("subtitle")}</p>
+          <h1 className="font-bold text-2xl">{t("loginTitle")}</h1>
+          <p className="text-muted-foreground text-sm">{t("loginSubtitle")}</p>
         </div>
         <Controller
           control={control}
@@ -155,7 +155,7 @@ export const LoginForm = () => {
             {t("dontHaveAccount")}{" "}
             <Link
               className={`underline font-normal text-foreground underline-offset-4`}
-              href="/register"
+              href="/auth/register"
             >
               {t("register")}
             </Link>

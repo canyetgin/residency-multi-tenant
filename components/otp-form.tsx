@@ -97,7 +97,7 @@ export const OTPForm = ({ expiresAt, initialCountdown }: OTPFormProps) => {
   const isDisabled = isSubmitting || isPendingSwitch || isPendingResend
 
   return (
-    <form className="w-full flex flex-col gap-6" onSubmit={onSubmit}>
+    <form className="w-full flex flex-col gap-6 max-w-sm" onSubmit={onSubmit}>
       <div className="flex flex-col items-center gap-2 text-center">
         <div className="flex size-12 items-center justify-center rounded-full bg-primary/10">
           <MailIcon aria-hidden="true" className="size-6 text-primary" />

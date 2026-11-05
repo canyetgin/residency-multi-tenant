@@ -1,3 +1,4 @@
+import { isValidPhoneNumber } from "react-phone-number-input"
 import { z } from "zod"
 
 export const PASSWORD_MIN_LENGTH = 8
@@ -13,13 +14,6 @@ export const PASSWORD_RULES = {
 
 export const OTP_DIGITS_ONLY_RULE = /^\d+$/
 
-export const ORGANIZATION_TYPES = [
-  "buildingManager",
-  "residentialComplexManager",
-  "propertyManagementCompany",
-  "other",
-] as const
-
 const authBaseFields = {
   email: z.email("invalidEmail"),
   captchaToken: z.string().min(1, "invalidCaptcha"),
@@ -34,7 +28,6 @@ export type loginSchemeValues = z.infer<typeof loginSchema>
 
 export const registerSchema = z.object({
   ...authBaseFields,
-
   password: z
     .string()
     .min(PASSWORD_RULES.minLength, "passwordTooShort")
@@ -42,15 +35,11 @@ export const registerSchema = z.object({
     .regex(PASSWORD_RULES.uppercase, "passwordUppercaseRequired")
     .regex(PASSWORD_RULES.number, "passwordNumberRequired")
     .regex(PASSWORD_RULES.specialCharacter, "passwordSpecialCharacterRequired"),
-
-  organizationName: z.string().trim().min(1, "organizationNameRequired"),
-  organizationType: z.enum(ORGANIZATION_TYPES, {
-    error: "invalidOrganizationType",
+  firstName: z.string().min(1, "firstNameRequired"),
+  lastName: z.string().min(1, "lastNameRequired"),
+  phone: z.e164("invalidPhone").refine(isValidPhoneNumber, {
+    error: "invalidPhone",
   }),
-  phoneNumber: z.e164("invalidPhoneNumber"),
-  city: z.string().trim().min(1, "cityRequired"),
-  state: z.string().trim().min(1, "stateRequired"),
-  zipCode: z.string().trim().min(1, "zipCodeRequired"),
   termsAndConditions: z
     .boolean()
     .refine((value) => value === true, { error: "termsAndConditionsRequired" }),
