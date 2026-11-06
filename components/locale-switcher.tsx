@@ -1,6 +1,6 @@
 "use client"
 
-import { FlagIcon } from "@/components/icons/flag-icon"
+import { FlagIcon } from "@/components/flag-icon"
 import {
   Select,
   SelectContent,
