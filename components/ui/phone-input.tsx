@@ -174,8 +174,8 @@ const CountrySelect = ({
             type="button"
             variant="outline"
             className={cn(
-              "flex h-8 w-28 shrink-0 gap-1",
-              "rounded-e-none rounded-s-lg border-e-0 px-3",
+              "flex h-8 w-26 shrink-0 gap-1 justify-between flex-nowrap",
+              "rounded-e-none rounded-s-lg border-e-0 ",
               "focus-visible:z-10"
             )}
             disabled={disabled || readOnly}
@@ -190,9 +190,10 @@ const CountrySelect = ({
           />
         }
       >
-        <FlagIcon country={selectedCountry} />
-        {callingCode && <span className="shrink-0 text-sm tabular-nums">+{callingCode}</span>}
-
+        <div className="flex items-center gap-1">
+          <FlagIcon country={selectedCountry} />
+          {callingCode && <span className="shrink-0 text-sm tabular-nums">+{callingCode}</span>}
+        </div>
         <ChevronsUpDown
           aria-hidden="true"
           className={cn("size-4 shrink-0 opacity-50", disabled ? "hidden" : "opacity-100")}
