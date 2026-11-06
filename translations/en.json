@@ -6,16 +6,16 @@
     "title": "Residency | Apartment Management and Dues Payments",
     "description": "Residency is a multi-tenant platform for managing apartments and dues payments securely and efficiently.",
     "loginPage": {
-      "title": "Sign in",
-      "description": "Sign in to your account to continue."
+      "title": "Welcome Back",
+      "description": "Sign in to pick up where you left off."
     },
     "verifyOTPPage": {
       "title": "Verify your code",
       "description": "Enter the verification code sent to your email."
     },
     "registerPage": {
-      "title": "Create account",
-      "description": "Create your account to get started."
+      "title": "Create Your Account",
+      "description": "Let's get to know you a little before we begin."
     },
     "404Page": {
       "title": "Oops! Page Not Found",
@@ -52,11 +52,11 @@
     "password": "Password",
     "email": "Email",
     "forgotPassword": "Forgot Password",
-    "login": "Login",
-    "loggingIn": "Logging in...",
-    "register": "Register",
-    "loginTitle": "Welcome Back!",
-    "loginSubtitle": "Please enter your information to log in.",
+    "login": "Sign In",
+    "loggingIn": "Signing In...",
+    "register": "Sign Up",
+    "loginTitle": "Welcome Back",
+    "loginSubtitle": "Sign in to pick up where you left off.",
     "loginWithGoogle": "Login with Google",
     "dontHaveAccount": "Don't have an account?",
     "passwordPlaceholder": "Enter your password",
@@ -102,8 +102,8 @@
     "invalidPhone": "Enter a valid phone number.",
     "registerWithGoogle": "Continue with Google",
     "haveAccount": "Already have an account?",
-    "registerTitle": "Create your account",
-    "registerSubtitle": "A place to begin.",
+    "registerTitle": "Create Your Account",
+    "registerSubtitle": "Let's get to know you a little before we begin.",
     "registerAccountDetails": "Account details",
     "registerPersonalInformation": "Personal information"
   }

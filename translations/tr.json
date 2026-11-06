@@ -6,16 +6,16 @@
     "title": "Residency | Apartman Yönetimi ve Aidat Ödemeleri",
     "description": "Residency, apartman yönetimi ve aidat ödemelerini güvenli ve verimli bir şekilde yönetmek için geliştirilmiş çok kiracılı bir platformdur.",
     "loginPage": {
-      "title": "Giriş yap",
-      "description": "Devam etmek için hesabınıza giriş yapın."
+      "title": "Tekrardan Hoş Geldiniz",
+      "description": "Kaldığınız yerden devam etmek için giriş yapın."
     },
     "verifyOTPPage": {
       "title": "Kodunuzu doğrulayın",
       "description": "E-posta adresinize gönderilen doğrulama kodunu girin."
     },
     "registerPage": {
-      "title": "Hesap oluştur",
-      "description": "Başlamak için hesabınızı oluşturun."
+      "title": "Hesabınızı Oluşturun",
+      "description": "Başlamak için sizi biraz tanıyalım."
     },
     "404Page": {
       "title": "Ooops! Sayfa Bulunamadı",
@@ -55,8 +55,8 @@
     "login": "Giriş Yap",
     "loggingIn": "Giriş Yapılıyor...",
     "register": "Kayıt Ol",
-    "title": "Tekrardan Hoşgeldiniz!",
-    "subtitle": "Lütfen giriş yapmak için bilgilerinizi giriniz.",
+    "loginTitle": "Tekrardan Hoş Geldiniz",
+    "loginSubtitle": "Kaldığınız yerden devam etmek için giriş yapın.",
     "loginWithGoogle": "Google ile Giriş Yap",
     "dontHaveAccount": "Hesabınız yok mu?",
     "passwordPlaceholder": "Şifrenizi giriniz",
@@ -102,8 +102,8 @@
     "invalidPhone": "Geçerli bir telefon numarası girin.",
     "registerWithGoogle": "Google ile devam et",
     "haveAccount": "Zaten hesabınız var mı?",
-    "registerTitle": "Hesap oluştur",
-    "registerSubtitle": "Başlamak için ilk adım.",
+    "registerTitle": "Hesabınızı Oluşturun",
+    "registerSubtitle": "Başlamak için sizi biraz tanıyalım.",
     "registerAccountDetails": "Hesap bilgileri",
     "registerPersonalInformation": "Kişisel bilgiler"
   }

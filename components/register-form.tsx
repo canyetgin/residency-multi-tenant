@@ -17,7 +17,6 @@ import { Link } from "@/i18n/navigation"
 import { registerSchema, registerSchemeValues } from "@/schemes/auth.scheme"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Turnstile, TurnstileInstance } from "@marsidev/react-turnstile"
-import { useTheme } from "@wrksz/themes/client"
 import { useLocale, useTranslations } from "next-intl"
 import { useRef } from "react"
 import { Controller, useForm, useWatch } from "react-hook-form"
@@ -26,7 +25,6 @@ import { PhoneInput } from "./ui/phone-input"
 export const RegisterForm = () => {
   const t = useTranslations("auth")
   const locale = useLocale()
-  const { resolvedTheme } = useTheme()
   const { handleSubmit, control, formState } = useForm<registerSchemeValues>({
     defaultValues: {
       email: "",
@@ -210,7 +208,6 @@ export const RegisterForm = () => {
                   field.onChange("")
                 }}
                 options={{
-                  theme: resolvedTheme === "light" ? "light" : "dark",
                   size: "flexible",
                   language: locale,
                 }}
