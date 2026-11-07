@@ -4,16 +4,25 @@ import { redirect } from "@/i18n/navigation"
 import { Metadata } from "next"
 import { getLocale, getTranslations } from "next-intl/server"
 
+//content need to be fresh and uncached for security reasons and biggest reason is we dont want show a suspense fallback.
+// this ignores the appshell and waits for OTP Cookie.
+export const instant = false
+
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("metadata.verifyOTPPage")
   return {
     title: t("title"),
     description: t("description"),
+    robots: {
+      index: false,
+      follow: false,
+      googleBot: {
+        index: false,
+        follow: false,
+      },
+    },
   }
 }
-
-//content need to be fresh and uncached for security reasons. this ignores the appshell and waits for OTP Cookie.
-export const instant = false
 
 export default async function OTPPage() {
   const locale = await getLocale()

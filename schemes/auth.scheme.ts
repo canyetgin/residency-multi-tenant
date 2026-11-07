@@ -1,4 +1,4 @@
-import { isValidPhoneNumber } from "react-phone-number-input"
+import { isValidPhoneNumber } from "react-phone-number-input/input"
 import { z } from "zod"
 
 export const PASSWORD_MIN_LENGTH = 8

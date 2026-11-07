@@ -1,8 +1,8 @@
 "use client" // needed to use as fully client - workaround for global not found - I saw this in official next-intl github repo example
 import { NotFoundLayout } from "@/components/not-found-layout"
+import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils"
 import ENTranslations from "@/translations/en.json"
-import { ThemeProvider } from "@wrksz/themes"
 import { NextIntlClientProvider } from "next-intl"
 import { Geist_Mono, Instrument_Sans } from "next/font/google"
 import "./globals.css"
