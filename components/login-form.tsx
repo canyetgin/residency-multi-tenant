@@ -11,12 +11,17 @@ import { loginSchema, type loginSchemeValues } from "@/schemes/auth.scheme"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Turnstile, TurnstileInstance } from "@marsidev/react-turnstile"
 import { useLocale, useTranslations } from "next-intl"
+import { useSearchParams } from "next/navigation"
 import { useRef } from "react"
 import { Controller, useForm } from "react-hook-form"
 
 export const LoginForm = () => {
   const t = useTranslations("auth")
   const locale = useLocale()
+
+  const searchParams = useSearchParams()
+  const next = searchParams.get("next")
+
   const { handleSubmit, control, formState } = useForm<loginSchemeValues>({
     defaultValues: {
       email: "",
@@ -30,7 +35,8 @@ export const LoginForm = () => {
 
   // eslint-disable-next-line react-hooks/refs
   const onSubmit = handleSubmit(async (values) => {
-    const res = await loginAction(values)
+    const res = await loginAction(values, next)
+
     toast.add({
       type: "error",
       description: t(res.error),

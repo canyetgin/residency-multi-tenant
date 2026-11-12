@@ -1,7 +1,7 @@
 import { LocaleSwitcher } from "@/components/locale-switcher"
 import { ThemeSwitcher } from "@/components/theme-switcher"
 
-export default async function AuthLayout({ children }: LayoutProps<"/[locale]">) {
+export default function AuthLayout({ children }: LayoutProps<"/[locale]/auth">) {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center">
       <div className="flex w-full flex-1 flex-col items-center justify-center px-4 py-8">

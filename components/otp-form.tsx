@@ -9,6 +9,7 @@ import { OTP_DIGITS_ONLY_RULE, OTPSchema, type OTPSchemeValues } from "@/schemes
 import { zodResolver } from "@hookform/resolvers/zod"
 import { MailIcon, RefreshCwIcon } from "lucide-react"
 import { useTranslations } from "next-intl"
+import { useSearchParams } from "next/navigation"
 import { useEffect, useRef, useState, useTransition } from "react"
 import { Controller, useForm } from "react-hook-form"
 
@@ -19,6 +20,9 @@ type OTPFormProps = {
 
 export const OTPForm = ({ expiresAt, initialCountdown }: OTPFormProps) => {
   const t = useTranslations("auth")
+
+  const searchParams = useSearchParams()
+  const next = searchParams.get("next")
 
   const overriddenExpiresAtRef = useRef<number | null>(null)
 
@@ -79,7 +83,7 @@ export const OTPForm = ({ expiresAt, initialCountdown }: OTPFormProps) => {
   }
 
   const onSubmit = handleSubmit(async (values) => {
-    const res = await otpVerifyAction(values)
+    const res = await otpVerifyAction(values, next)
     return toast.add({
       type: "error",
       description: t(res.error),

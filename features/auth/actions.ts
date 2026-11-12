@@ -3,6 +3,7 @@
 import { captchaVerify } from "@/lib/captcha-verify"
 import { OTP_ERROR_CODES, otpDeleteCookie, otpSetCookie } from "@/lib/otp-cookie"
 import { resolveTypedError } from "@/lib/resolve-typed-errors"
+import { safeRedirect } from "@/lib/safe-redirect"
 import { delay } from "@/lib/utils"
 import {
   loginSchema,
@@ -29,7 +30,10 @@ import {
 //TODO - remove all delay functions when will implement better auth,
 // it's only for simulating network latency during development
 
-export async function loginAction(values: loginSchemeValues): Promise<AuthActionResponse> {
+export async function loginAction(
+  values: loginSchemeValues,
+  next?: string | null
+): Promise<AuthActionResponse> {
   try {
     const validation = loginSchema.safeParse(values)
 
@@ -58,6 +62,13 @@ export async function loginAction(values: loginSchemeValues): Promise<AuthAction
       }),
     }
   }
+
+  if (next) {
+    const redirectTo = safeRedirect(next)
+    const params = new URLSearchParams({ next: redirectTo })
+    redirect(`/auth/verify?${params}`, RedirectType.replace)
+  }
+
   return redirect("/auth/verify", RedirectType.replace)
 }
 
@@ -101,7 +112,10 @@ export async function otpResendAction(): Promise<OTPResendActionResponse> {
   }
 }
 
-export async function otpVerifyAction(values: OTPSchemeValues): Promise<OTPVerifyActionResponse> {
+export async function otpVerifyAction(
+  values: OTPSchemeValues,
+  next?: string | null
+): Promise<OTPVerifyActionResponse> {
   try {
     const validation = OTPSchema.safeParse(values)
 
@@ -146,7 +160,11 @@ export async function otpVerifyAction(values: OTPSchemeValues): Promise<OTPVerif
       }),
     }
   }
-  return redirect("/dashboard", RedirectType.replace)
+  if (next) {
+    return redirect(safeRedirect(next), RedirectType.replace)
+  }
+
+  return redirect("/auth/verify", RedirectType.replace)
 }
 
 export async function otpResetSessionAction(): Promise<OTPResetSessionActionResponse> {
