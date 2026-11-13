@@ -1,4 +1,4 @@
-import { RegisterForm } from "@/features/auth/components.ts/register-form"
+import { RegisterForm } from "@/features/auth/components/register-form"
 import { getOtpState, getSession } from "@/features/auth/queries"
 import { redirect } from "@/i18n/navigation"
 import { Metadata } from "next"

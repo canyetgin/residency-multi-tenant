@@ -1,4 +1,4 @@
-import { LoginForm } from "@/features/auth/components.ts/login-form"
+import { LoginForm } from "@/features/auth/components/login-form"
 import { getOtpState, getSession } from "@/features/auth/queries"
 import { redirect } from "@/i18n/navigation"
 import { Metadata } from "next"
