@@ -1,4 +1,4 @@
-import { OTPForm } from "@/components/otp-form"
+import { OTPForm } from "@/features/auth/components.ts/otp-form"
 import { getOtpState, getSession } from "@/features/auth/queries"
 import { redirect } from "@/i18n/navigation"
 import { Metadata } from "next"

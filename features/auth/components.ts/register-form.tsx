@@ -20,7 +20,7 @@ import { Turnstile, TurnstileInstance } from "@marsidev/react-turnstile"
 import { useLocale, useTranslations } from "next-intl"
 import { useRef } from "react"
 import { Controller, useForm, useWatch } from "react-hook-form"
-import { PhoneInput } from "./ui/phone-input"
+import { PhoneInput } from "../../../components/ui/phone-input"
 
 export const RegisterForm = () => {
   const t = useTranslations("auth")
