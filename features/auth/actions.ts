@@ -8,7 +8,7 @@ import { delay } from "@/lib/utils"
 import {
   loginSchema,
   OTPSchema,
-  type loginSchemeValues,
+  type LoginSchemeValues,
   type OTPSchemeValues,
 } from "@/schemes/auth.scheme"
 import { cookies } from "next/headers"
@@ -31,7 +31,7 @@ import {
 // it's only for simulating network latency during development
 
 export async function loginAction(
-  values: loginSchemeValues,
+  values: LoginSchemeValues,
   next?: string | null
 ): Promise<AuthActionResponse> {
   try {
@@ -42,7 +42,7 @@ export async function loginAction(
     }
     const { email, password, captchaToken } = validation.data
 
-    await captchaVerify({ captchaToken })
+    await captchaVerify({ captchaToken, expectedAction: "login" })
 
     await delay(2000)
 

@@ -1,6 +1,13 @@
 import { LocaleSwitcher } from "@/components/locale-switcher"
 import { ThemeSwitcher } from "@/components/theme-switcher"
 
+export const metadata = {
+  robots: {
+    index: false,
+    follow: false,
+  },
+}
+
 export default function AuthLayout({ children }: LayoutProps<"/[locale]/auth">) {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center">

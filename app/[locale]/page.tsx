@@ -2,8 +2,25 @@ import { LocaleSwitcher } from "@/components/locale-switcher"
 import { ThemeSwitcher } from "@/components/theme-switcher"
 import { Button } from "@/components/ui/button"
 import { Link } from "@/i18n/navigation"
+import { Locale } from "@/i18n/routing"
+import { buildPageAlternates } from "@/lib/seo"
+import { Metadata } from "next"
+import { getLocale, getTranslations } from "next-intl/server"
 
-export default function Page() {
+// Static page example (no params prop needed for locale)
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = (await getLocale()) as Locale
+  const t = await getTranslations("metadata")
+
+  return {
+    title: t("title"),
+    description: t("description"),
+    alternates: buildPageAlternates(locale, "/"),
+  }
+}
+
+export default async function Page() {
+  await getLocale()
   return (
     <div className="flex min-h-svh p-6">
       <div className="flex max-w-md min-w-0 flex-col gap-4 text-sm leading-loose">

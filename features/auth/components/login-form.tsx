@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input"
 import { toast } from "@/components/ui/toast"
 import { loginAction } from "@/features/auth/actions"
 import { Link } from "@/i18n/navigation"
-import { loginSchema, type loginSchemeValues } from "@/schemes/auth.scheme"
+import { loginSchema, type LoginSchemeValues } from "@/schemes/auth.scheme"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Turnstile, TurnstileInstance } from "@marsidev/react-turnstile"
 import { useLocale, useTranslations } from "next-intl"
@@ -22,7 +22,7 @@ export const LoginForm = () => {
   const searchParams = useSearchParams()
   const next = searchParams.get("next")
 
-  const { handleSubmit, control, formState } = useForm<loginSchemeValues>({
+  const { handleSubmit, control, formState } = useForm<LoginSchemeValues>({
     defaultValues: {
       email: "",
       password: "",

@@ -1,5 +1,6 @@
 import { isValidPhoneNumber } from "react-phone-number-input/input"
 import { z } from "zod"
+import { captchaVerifySchema } from "./trunsitale.scheme"
 
 export const PASSWORD_MIN_LENGTH = 8
 export const PASSWORD_MAX_LENGTH = 128
@@ -16,7 +17,7 @@ export const OTP_DIGITS_ONLY_RULE = /^\d+$/
 
 const authBaseFields = {
   email: z.email("invalidEmail"),
-  captchaToken: z.string().min(1, "invalidCaptcha"),
+  captchaToken: captchaVerifySchema.shape.captchaToken,
 }
 
 export const loginSchema = z.object({
@@ -24,7 +25,7 @@ export const loginSchema = z.object({
   password: z.string().min(1, "passwordRequired"),
 })
 
-export type loginSchemeValues = z.infer<typeof loginSchema>
+export type LoginSchemeValues = z.infer<typeof loginSchema>
 
 export const registerSchema = z.object({
   ...authBaseFields,
@@ -45,7 +46,7 @@ export const registerSchema = z.object({
     .refine((value) => value === true, { error: "termsAndConditionsRequired" }),
 })
 
-export type registerSchemeValues = z.infer<typeof registerSchema>
+export type RegisterSchemeValues = z.infer<typeof registerSchema>
 
 export const OTPSchema = z.object({
   otp: z.string().length(6, "otpMustBe6Digits").regex(OTP_DIGITS_ONLY_RULE, "otpMustBeDigits"),

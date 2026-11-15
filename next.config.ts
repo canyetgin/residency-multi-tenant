@@ -1,11 +1,11 @@
 import type { NextConfig } from "next"
 import createNextIntlPlugin from "next-intl/plugin"
 
-const isProd = process.env.NODE_ENV === "production"
+const isDev = process.env.NODE_ENV === "development"
 
 const cspHeader = `
     default-src 'self';
-    script-src 'self' 'unsafe-inline'${!isProd ? " 'unsafe-eval'" : ""};
+    script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""};
     style-src 'self' 'unsafe-inline';
     img-src 'self' blob: data:;
     font-src 'self';
@@ -49,7 +49,7 @@ const nextConfig: NextConfig = {
             key: "Strict-Transport-Security",
             value: "max-age=31536000; includeSubDomains",
           },
-          { key: "Content-Security-Policy", value: cspHeader },
+          { key: "Content-Security-Policy", value: cspHeader.replace(/\s+/g, " ").trim() },
         ],
       },
     ]
