@@ -11,7 +11,9 @@
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx}\"",
     "typecheck": "tsc --noEmit",
     "format:check": "prettier --check .",
-    "prepare": "husky"
+    "prepare": "husky",
+    "sync:types": "npx tsx scripts/sync-strapi-types.ts",
+    "predev": "npm run sync:types"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
@@ -56,6 +58,7 @@
     "eslint-config-prettier": "^10.1.8",
     "husky": "^9.1.7",
     "lint-staged": "^17.6.0",
+    "openapi-typescript": "^7.13.0",
     "prettier": "^3.9.10",
     "prettier-plugin-organize-imports": "^4.3.0",
     "prettier-plugin-tailwindcss": "^0.8.1",
