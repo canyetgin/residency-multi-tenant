@@ -7,7 +7,6 @@ import { buildPageAlternates } from "@/lib/seo"
 import { Metadata } from "next"
 import { getLocale, getTranslations } from "next-intl/server"
 
-// Static page example (no params prop needed for locale)
 export async function generateMetadata(): Promise<Metadata> {
   const locale = (await getLocale()) as Locale
   const t = await getTranslations("metadata")
