@@ -2,7 +2,7 @@ import {
   captchaVerifySchema,
   turnstileSchema,
   type CaptchaVerifySchemeValues,
-} from "@/schemes/trunsitale.scheme"
+} from "@/schemes/turnstile.scheme"
 import { headers } from "next/headers"
 import "server-only"
 

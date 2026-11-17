@@ -1,6 +1,6 @@
 import { isValidPhoneNumber } from "react-phone-number-input/input"
 import { z } from "zod"
-import { captchaVerifySchema } from "./trunsitale.scheme"
+import { captchaVerifyInputSchema } from "./turnstile.scheme"
 
 export const PASSWORD_MIN_LENGTH = 8
 export const PASSWORD_MAX_LENGTH = 128
@@ -9,15 +9,15 @@ export const PASSWORD_RULES = {
   uppercase: /\p{Lu}/u,
   number: /\p{Nd}/u,
   specialCharacter: /[\p{P}\p{S}]/u,
-  minLength: 8,
-  maxLength: 128,
+  minLength: PASSWORD_MIN_LENGTH,
+  maxLength: PASSWORD_MAX_LENGTH,
 } as const
 
 export const OTP_DIGITS_ONLY_RULE = /^\d+$/
 
 const authBaseFields = {
   email: z.email("invalidEmail"),
-  captchaToken: captchaVerifySchema.shape.captchaToken,
+  captchaToken: captchaVerifyInputSchema.shape.captchaToken,
 }
 
 export const loginSchema = z.object({
@@ -25,7 +25,7 @@ export const loginSchema = z.object({
   password: z.string().min(1, "passwordRequired"),
 })
 
-export type LoginSchemeValues = z.infer<typeof loginSchema>
+export type LoginInput = z.infer<typeof loginSchema>
 
 export const registerSchema = z.object({
   ...authBaseFields,
@@ -46,10 +46,10 @@ export const registerSchema = z.object({
     .refine((value) => value === true, { error: "termsAndConditionsRequired" }),
 })
 
-export type RegisterSchemeValues = z.infer<typeof registerSchema>
+export type RegisterInput = z.infer<typeof registerSchema>
 
-export const OTPSchema = z.object({
+export const otpSchema = z.object({
   otp: z.string().length(6, "otpMustBe6Digits").regex(OTP_DIGITS_ONLY_RULE, "otpMustBeDigits"),
 })
 
-export type OTPSchemeValues = z.infer<typeof OTPSchema>
+export type OTPInput = z.infer<typeof otpSchema>
