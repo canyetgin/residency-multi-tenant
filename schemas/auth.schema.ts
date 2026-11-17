@@ -1,6 +1,6 @@
 import { isValidPhoneNumber } from "react-phone-number-input/input"
 import { z } from "zod"
-import { captchaVerifyInputSchema } from "./turnstile.scheme"
+import { captchaVerifyInputSchema } from "./turnstile.schema"
 
 export const PASSWORD_MIN_LENGTH = 8
 export const PASSWORD_MAX_LENGTH = 128
@@ -48,8 +48,8 @@ export const registerSchema = z.object({
 
 export type RegisterInput = z.infer<typeof registerSchema>
 
-export const otpSchema = z.object({
+export const OTPSchema = z.object({
   otp: z.string().length(6, "otpMustBe6Digits").regex(OTP_DIGITS_ONLY_RULE, "otpMustBeDigits"),
 })
 
-export type OTPInput = z.infer<typeof otpSchema>
+export type OTPInput = z.infer<typeof OTPSchema>

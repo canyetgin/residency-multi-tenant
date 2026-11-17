@@ -3,7 +3,7 @@ import "server-only"
 import { cookies } from "next/headers"
 import { connection } from "next/server"
 import { AUTH_OTP_COOKIE_NAME, AUTH_SESSION_COOKIE_NAME } from "./constants"
-import { GetOTPStateQueryResponse } from "./types"
+import type { GetOTPStateQueryResponse } from "./types"
 
 export async function getSession(): Promise<boolean> {
   const cookieStore = await cookies()
@@ -12,7 +12,7 @@ export async function getSession(): Promise<boolean> {
   return Boolean(sessionCookie?.value)
 }
 
-export async function getOtpState(): Promise<GetOTPStateQueryResponse> {
+export async function getOTPState(): Promise<GetOTPStateQueryResponse> {
   await connection()
   const cookieStore = await cookies()
   const expiresAtCookie = cookieStore.get(AUTH_OTP_COOKIE_NAME)
@@ -27,10 +27,10 @@ export async function getOtpState(): Promise<GetOTPStateQueryResponse> {
     return null
   }
 
-  const remaining = Math.max(0, Math.ceil((expiresAt - Date.now()) / 1000))
+  const remainingSeconds = Math.max(0, Math.ceil((expiresAt - Date.now()) / 1000))
 
   return {
     expiresAt,
-    remaining,
+    remainingSeconds,
   }
 }

@@ -1,8 +1,8 @@
 import {
-  captchaVerifySchema,
-  turnstileSchema,
-  type CaptchaVerifySchemeValues,
-} from "@/schemes/turnstile.scheme"
+  captchaVerifyInputSchema,
+  turnstileResponseSchema,
+  type CaptchaVerifyInput,
+} from "@/schemas/turnstile.schema"
 import { headers } from "next/headers"
 import "server-only"
 
@@ -16,7 +16,7 @@ export const CAPTCHA_ERROR_CODES = [
   "captchaVerificationActionMismatch",
 ] as const
 
-const TRUNSTILE_EXPECTED_TOKEN_ERROR_CODES: readonly string[] = [
+const TURNSTILE_EXPECTED_TOKEN_ERROR_CODES = [
   "timeout-or-duplicate",
   "invalid-input-response",
   "bad-request",
@@ -24,39 +24,38 @@ const TRUNSTILE_EXPECTED_TOKEN_ERROR_CODES: readonly string[] = [
 
 export type CaptchaVerifyErrorCode = (typeof CAPTCHA_ERROR_CODES)[number]
 
-export const captchaVerify = async ({
+export const verifyCaptcha = async ({
   captchaToken,
   expectedAction,
-}: CaptchaVerifySchemeValues): Promise<void> => {
+}: CaptchaVerifyInput): Promise<void> => {
   const verifyUrl = process.env.TURNSTILE_VERIFY_URL
   const expectedHostname = process.env.TURNSTILE_HOSTNAME
   const secret = process.env.TURNSTILE_SECRET_KEY
 
-  if (!verifyUrl || !expectedHostname || !secret)
+  if (!verifyUrl || !expectedHostname || !secret) {
     throw new Error("captchaVerificationNotConfigured")
-
-  const propsValidaiton = captchaVerifySchema.safeParse({ captchaToken, expectedAction })
-
-  if (!propsValidaiton.success) {
-    throw new Error("captchaVerificationResponseInvalid")
   }
 
-  const propsValidaitonResult = propsValidaiton.data
+  const parsedInput = captchaVerifyInputSchema.safeParse({ captchaToken, expectedAction })
+
+  if (!parsedInput.success) {
+    throw new Error("captchaVerificationCouldNotProcess")
+  }
 
   const headerStore = await headers()
 
   const remoteip =
     headerStore.get("x-forwarded-for")?.split(",")[0]?.trim() ||
     headerStore.get("x-real-ip") ||
-    undefined // in dev envorionment, the remote IP might not be available
+    undefined // in dev environment, the remote IP might not be available
 
   const captchaResponse = await fetch(verifyUrl, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      secret: secret,
-      response: propsValidaitonResult.captchaToken,
-      action: propsValidaitonResult.expectedAction,
+      secret,
+      response: parsedInput.data.captchaToken,
+      action: parsedInput.data.expectedAction,
       ...(remoteip && { remoteip }),
     }),
   })
@@ -67,26 +66,32 @@ export const captchaVerify = async ({
 
   const captchaResponseData = await captchaResponse.json()
 
-  const responseValidation = turnstileSchema.safeParse(captchaResponseData)
+  const parsedResponse = turnstileResponseSchema.safeParse(captchaResponseData)
 
-  if (!responseValidation.success) {
+  if (!parsedResponse.success) {
     throw new Error("captchaVerificationResponseInvalid")
   }
 
-  const responseValidationResult = responseValidation.data
+  const verification = parsedResponse.data
 
-  if (!responseValidationResult.success) {
-    const errorCodes = responseValidationResult["error-codes"]
-    if (errorCodes.some((code) => TRUNSTILE_EXPECTED_TOKEN_ERROR_CODES.includes(code))) {
+  if (!verification.success) {
+    const errorCodes = verification["error-codes"]
+    if (
+      errorCodes.some((code) =>
+        (TURNSTILE_EXPECTED_TOKEN_ERROR_CODES as readonly string[]).includes(code)
+      )
+    ) {
       throw new Error("captchaVerificationCouldNotProcess")
     }
-    //for "internal-error" and others
+    // for "internal-error" and others
     throw new Error("captchaVerificationFailedOrUnavailable")
   }
-  if (responseValidationResult.action !== expectedAction) {
+
+  if (verification.action !== parsedInput.data.expectedAction) {
     throw new Error("captchaVerificationActionMismatch")
   }
-  if (responseValidationResult.hostname !== expectedHostname) {
+
+  if (verification.hostname !== expectedHostname) {
     throw new Error("captchaVerificationHostnameMismatch")
   }
 }

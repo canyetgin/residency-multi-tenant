@@ -5,7 +5,7 @@ import { Field, FieldError, FieldGroup } from "@/components/ui/field"
 import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from "@/components/ui/input-otp"
 import { toast } from "@/components/ui/toast"
 import { otpResendAction, otpResetSessionAction, otpVerifyAction } from "@/features/auth/actions"
-import { OTP_DIGITS_ONLY_RULE, OTPSchema, type OTPSchemeValues } from "@/schemes/auth.scheme"
+import { OTP_DIGITS_ONLY_RULE, OTPSchema, type OTPInput } from "@/schemas/auth.schema"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { MailIcon, RefreshCwIcon } from "lucide-react"
 import { useTranslations } from "next-intl"
@@ -31,7 +31,7 @@ export const OTPForm = ({ expiresAt, initialCountdown }: OTPFormProps) => {
   const [isPendingResend, startTransitionResend] = useTransition()
   const [isPendingSwitch, startTransitionSwitch] = useTransition()
 
-  const { handleSubmit, control, formState, reset } = useForm<OTPSchemeValues>({
+  const { handleSubmit, control, formState, reset } = useForm<OTPInput>({
     defaultValues: {
       otp: "",
     },
@@ -42,9 +42,9 @@ export const OTPForm = ({ expiresAt, initialCountdown }: OTPFormProps) => {
     const updateCountdown = () => {
       const activeExpiresAt = overriddenExpiresAtRef.current ?? expiresAt
 
-      const remaining = Math.max(0, Math.ceil((activeExpiresAt - Date.now()) / 1000))
+      const remainingSeconds = Math.max(0, Math.ceil((activeExpiresAt - Date.now()) / 1000))
 
-      setCountdown(remaining)
+      setCountdown(remainingSeconds)
     }
 
     updateCountdown()

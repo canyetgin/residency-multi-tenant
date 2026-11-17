@@ -1,16 +1,11 @@
 "use server"
 
-import { captchaVerify } from "@/lib/captcha-verify"
+import { verifyCaptcha } from "@/lib/captcha-verify"
 import { OTP_ERROR_CODES, otpDeleteCookie, otpSetCookie } from "@/lib/otp-cookie"
 import { resolveTypedError } from "@/lib/resolve-typed-errors"
 import { safeRedirect } from "@/lib/safe-redirect"
 import { delay } from "@/lib/utils"
-import {
-  loginSchema,
-  OTPSchema,
-  type LoginSchemeValues,
-  type OTPSchemeValues,
-} from "@/schemes/auth.scheme"
+import { loginSchema, OTPSchema, type LoginInput, type OTPInput } from "@/schemas/auth.schema"
 import { cookies } from "next/headers"
 import { redirect, RedirectType } from "next/navigation"
 import {
@@ -20,7 +15,7 @@ import {
   AUTH_SESSION_COOKIE_NAME,
   AUTH_SESSION_COOKIE_OPTIONS,
 } from "./constants"
-import {
+import type {
   AuthActionResponse,
   OTPResendActionResponse,
   OTPResetSessionActionResponse,
@@ -31,18 +26,18 @@ import {
 // it's only for simulating network latency during development
 
 export async function loginAction(
-  values: LoginSchemeValues,
+  values: LoginInput,
   next?: string | null
 ): Promise<AuthActionResponse> {
   try {
-    const validation = loginSchema.safeParse(values)
+    const parsedInput = loginSchema.safeParse(values)
 
-    if (!validation.success) {
+    if (!parsedInput.success) {
       throw new Error("invalidRequest")
     }
-    const { email, password, captchaToken } = validation.data
+    const { email, password, captchaToken } = parsedInput.data
 
-    await captchaVerify({ captchaToken, expectedAction: "login" })
+    await verifyCaptcha({ captchaToken, expectedAction: "login" })
 
     await delay(2000)
 
@@ -113,13 +108,13 @@ export async function otpResendAction(): Promise<OTPResendActionResponse> {
 }
 
 export async function otpVerifyAction(
-  values: OTPSchemeValues,
+  values: OTPInput,
   next?: string | null
 ): Promise<OTPVerifyActionResponse> {
   try {
-    const validation = OTPSchema.safeParse(values)
+    const parsedInput = OTPSchema.safeParse(values)
 
-    if (!validation.success) throw new Error("invalidRequest")
+    if (!parsedInput.success) throw new Error("invalidRequest")
 
     const cookieStore = await cookies()
     const currentOtp = cookieStore.get(AUTH_OTP_COOKIE_NAME)
@@ -140,7 +135,7 @@ export async function otpVerifyAction(
 
     await delay(2000)
 
-    const isValid = validation.data.otp === "123456"
+    const isValid = parsedInput.data.otp === "123456"
 
     if (!isValid) throw new Error("otpInvalidCode")
 

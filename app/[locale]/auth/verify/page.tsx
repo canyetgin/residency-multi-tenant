@@ -1,5 +1,5 @@
 import { OTPForm } from "@/features/auth/components/otp-form"
-import { getOtpState, getSession } from "@/features/auth/queries"
+import { getOTPState, getSession } from "@/features/auth/queries"
 import { redirect } from "@/i18n/navigation"
 import { Metadata } from "next"
 import { getLocale, getTranslations } from "next-intl/server"
@@ -28,7 +28,7 @@ export default async function OTPPage() {
     })
   }
 
-  const otpState = await getOtpState()
+  const otpState = await getOTPState()
 
   if (!otpState) {
     return redirect({
@@ -37,5 +37,5 @@ export default async function OTPPage() {
     })
   }
 
-  return <OTPForm expiresAt={otpState.expiresAt} initialCountdown={otpState.remaining} />
+  return <OTPForm expiresAt={otpState.expiresAt} initialCountdown={otpState.remainingSeconds} />
 }

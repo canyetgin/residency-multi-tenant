@@ -14,7 +14,7 @@ import { Input } from "@/components/ui/input"
 import { toast } from "@/components/ui/toast"
 import { loginAction } from "@/features/auth/actions"
 import { Link } from "@/i18n/navigation"
-import { registerSchema, type RegisterSchemeValues } from "@/schemes/auth.scheme"
+import { RegisterInput, registerSchema } from "@/schemas/auth.schema"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Turnstile, TurnstileInstance } from "@marsidev/react-turnstile"
 import { useLocale, useTranslations } from "next-intl"
@@ -25,7 +25,7 @@ import { PhoneInput } from "../../../components/ui/phone-input"
 export const RegisterForm = () => {
   const t = useTranslations("auth")
   const locale = useLocale()
-  const { handleSubmit, control, formState } = useForm<RegisterSchemeValues>({
+  const { handleSubmit, control, formState } = useForm<RegisterInput>({
     defaultValues: {
       email: "",
       password: "",
